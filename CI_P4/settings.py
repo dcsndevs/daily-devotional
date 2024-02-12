@@ -24,12 +24,12 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('MCILy3RirTl6CC1xBa_2tiYcjvzm7mf2')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devotional-db11bc3466f9.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.herokuapp.com']
 
 
 # Application definition
