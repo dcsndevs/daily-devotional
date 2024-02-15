@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}{{ object.title }}{% else %}No Post for Today{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if post %}
+        <h2>{{ post.title }}</h2>
+        <p>Author: {{ post.author }}</p>
+        <p>Active Date: {{ post.active_date }}</p>
+        <p>Memory Verse: {{ post.memory_verse }}</p>
+        <p>{{ post.content }}</p>
+        <!-- Add more fields as needed -->
+    {% else %}
+        <p>No post available for today.</p>
+    {% endif %}
+{% endblock %}

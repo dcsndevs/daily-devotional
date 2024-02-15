@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Devotional Archive
+{% endblock %}
+
+{% block content %}
+    <h1>Archive</h1>
+    <ul>
+        {% for post in object_list %}
+            <li>
+                <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+                <p>Author: {{ post.author }}</p>
+                <p>Date: {{ post.active_date }}</p>
+            </li>
+        {% empty %}
+            <li>No posts available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

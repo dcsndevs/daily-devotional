@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Author: {{ post.author }}</p>
+    <p>Active Date: {{ post.active_date }}</p>
+    <p>Memory Verse: {{ post.memory_verse }}</p>
+    <p>{{ post.content }}</p>
+    <!-- Add more fields as needed -->
+{% endblock %}
