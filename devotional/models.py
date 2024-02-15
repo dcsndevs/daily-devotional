@@ -8,7 +8,7 @@ APPROVED = ((0, "True"), (1, "False"))
 # Our models are here
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name="devotional_posts")
+                               related_name="devotional_posts", default=1)
     slug = models.SlugField(max_length=250, unique=True)
     title = models.CharField(max_length=200, unique=True)
     active_date = models.DateField() #Can be uses as excerpt as well
@@ -19,7 +19,7 @@ class Post(models.Model):
     background_image = CloudinaryField('image', default='placeholder')
     title_image = CloudinaryField('image', default='placeholder2')
     status = models.IntegerField(choices=STATUS, default=1)
-    likes = models.ManyToManyField(User, related_name="devotional_likes")
+    likes = models.ManyToManyField(User, related_name="devotional_likes", null=True, blank=True)
     
     class Meta:
         ordering = ['-active_date']
@@ -34,7 +34,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
-    likes2 = models.ManyToManyField(User, related_name="comment_likes")
+    likes2 = models.ManyToManyField(User, related_name="comment_likes", null=True, blank=True)
     
     @property
     def likes2_count(self):
