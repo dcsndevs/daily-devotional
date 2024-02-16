@@ -14,24 +14,20 @@
     <p>{{ post.content }}</p>
     <p>
         {% if user.is_authenticated %}
-        <form action="{% url 'post_like' post.slug %}" method="POST">
-            {% csrf_token %}
-            {% if liked %}
-
-            <button type="submit" name="devotionalpost_id" value="{{post.slug}}">
-                <i class="fas fa-heart">like it!</i>
-            </button>
-
-            {% else %}
-            <button type="submit" name="devotionalpost_id" value="{{post.slug}}">
-                <i class="fas fa-heart">liked</i>
-            </button>
-
-            {% endif %}
-        </form>
+            <form action="{% url 'post_like' post.slug %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="post-like">
+                    {% if user in post.likes.all %}
+                        Unlike
+                    {% else %}
+                        Like
+                    {% endif %}
+                </button>
+            </form>
         {% else %}
-        <span><i class="far fa-heart">Cannot-Like</i></span>
-        {% endif %}
+    <span>Login to like this post</span>
+
+{% endif %}
         <span>{{ post.number_of_likes }}</span>
     </p>
     <div class="col-1">
@@ -83,6 +79,21 @@
           </p>
           <div id="comment{{ comment.id }}">
             {{ comment.body | linebreaks }}
+            <p>Likes: {{ comment.likes2_count }}</p>
+            {% if user.is_authenticated %}
+                <form action="{% url 'like_comment' comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="like-comment">
+                        {% if request.user in comment.likes2.all %}
+                            Unlike
+                        {% else %}
+                            Like
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <span>Login to like this comment</span>
+            {% endif %}
           </div>
           {% if not comment.approved and comment.author == user %}
           <p class="approval">
@@ -95,7 +106,6 @@
       </div>
     </div>
   </div>
-</div>
+</div>  
 
-    
 {% endblock %}

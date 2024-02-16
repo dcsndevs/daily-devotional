@@ -49,6 +49,9 @@ class Comment(models.Model):
         
     def __str__(self):
         return f"Comment by {self.author}"
+    
+    def number_of_likes2(self):
+        return self.likes2.count()
 
     
     

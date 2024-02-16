@@ -5,7 +5,8 @@ from django.views.generic import DetailView
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
-from .models import Post
+from django.http import JsonResponse
+from .models import Post, Comment
 from .forms import CommentForm
 
 
@@ -59,25 +60,30 @@ def current_date_devotional(request):
         )
 
 
-# class PostLike(View):
+def post_like(request, slug):
+    post = get_object_or_404(Post, slug=slug)
     
-#     def post(self, request, slug):
-#         post = get_object_or_404(Post, slug=slug)
-        
-#         if post.likes.filter(id=request.user.id).exists():
-#             post.likes.remove(request.user)
-#         else:
-#             post.likes.add(request.user)
-            
-#         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
-
-class PostLike(View):
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
     
-    def post(self, request, slug, *args, **kwargs):
-        post = get_object_or_404(Post, slug=slug)
-        if post.likes.filter(id=request.user.id).exists():
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+def like_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    
+    # Check if the user has already liked the comment
+    if request.user in comment.likes2.all():
+        # User has already liked the comment, so unlike it
+        comment.likes2.remove(request.user)
+        liked = False
+    else:
+        # User hasn't liked the comment yet, so like it
+        comment.likes2.add(request.user)
+        liked = True
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
