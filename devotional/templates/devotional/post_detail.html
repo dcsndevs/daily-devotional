@@ -12,8 +12,37 @@
     <p>Active Date: {{ post.active_date }}</p>
     <p>Memory Verse: {{ post.memory_verse }}</p>
     <p>{{ post.content }}</p>
-    <!-- Add more fields as needed -->
+    <p>
+        {% if user.is_authenticated %}
+        <form action="{% url 'post_like' post.slug %}" method="POST">
+            {% csrf_token %}
+            {% if liked %}
 
+            <button type="submit" name="devotionalpost_id" value="{{post.slug}}">
+                <i class="fas fa-heart">like it!</i>
+            </button>
+
+            {% else %}
+            <button type="submit" name="devotionalpost_id" value="{{post.slug}}">
+                <i class="fas fa-heart">liked</i>
+            </button>
+
+            {% endif %}
+        </form>
+        {% else %}
+        <span><i class="far fa-heart">Cannot-Like</i></span>
+        {% endif %}
+        <span>{{ post.number_of_likes }}</span>
+    </p>
+    <div class="col-1">
+        {% with comments.count as total_comments %}
+        <strong class="text-secondary"><i class="far fa-comments"></i>
+            {{ total_comments }}
+        </strong>
+        
+        {% endwith %}
+    </div>
+   
     <div>
         <h2>Write a comment</h2>
     <p>Commenting as: {{ user.username }}</p>

@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.utils import timezone
-from django.views import generic
+from django.views import generic, View
 from django.views.generic import DetailView
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
 from .models import Post
@@ -56,3 +57,27 @@ def current_date_devotional(request):
                                 'comment_form': CommentForm()
                             },
         )
+
+
+# class PostLike(View):
+    
+#     def post(self, request, slug):
+#         post = get_object_or_404(Post, slug=slug)
+        
+#         if post.likes.filter(id=request.user.id).exists():
+#             post.likes.remove(request.user)
+#         else:
+#             post.likes.add(request.user)
+            
+#         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+class PostLike(View):
+    
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
