@@ -7,6 +7,7 @@ __pycache__/
 node_modules/
 .github/
 cloudinary_python.txt
+notes.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
