@@ -19,7 +19,7 @@ class Post(models.Model):
     background_image = CloudinaryField('image', default='placeholder')
     title_image = CloudinaryField('image', default='placeholder2')
     status = models.IntegerField(choices=STATUS, default=1)
-    likes = models.ManyToManyField(User, related_name="devotional_likes", null=True, blank=True)
+    likes = models.ManyToManyField(User, related_name="devotional_likes", blank=True)
     
     class Meta:
         ordering = ['-active_date']
@@ -34,7 +34,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
-    likes2 = models.ManyToManyField(User, related_name="comment_likes", null=True, blank=True)
+    likes2 = models.ManyToManyField(User, related_name="comment_likes", blank=True)
     
     @property
     def likes2_count(self):

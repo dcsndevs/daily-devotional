@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     {% if object %}{{ object.title }}{% else %}No Post for Today{% endif %}
 {% endblock %}
@@ -11,7 +13,18 @@
         <p>Active Date: {{ post.active_date }}</p>
         <p>Memory Verse: {{ post.memory_verse }}</p>
         <p>{{ post.content }}</p>
+        <p>like it! {{ post.likes }}</p>
         <!-- Add more fields as needed -->
+
+        <div>
+            <h2>Write a comment</h2>
+        <p>Commenting as: {{ user.username }}</p>
+        <form method="post">
+            {{ comment_form | crispy }}
+            {% csrf_token %}
+            <button type="submit">Comment</button>
+        </form>
+        </div>
     {% else %}
         <p>No post available for today.</p>
     {% endif %}
