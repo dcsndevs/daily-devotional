@@ -41,12 +41,21 @@
 
     <div>
         <h2>Write a comment</h2>
-    <p>Commenting as: {{ user.username }}</p>
-    <form method="post">
-        {{ comment_form | crispy }}
-        {% csrf_token %}
-        <button type="submit">Comment</button>
-    </form>
+        {% if user.is_authenticated %}
+            <p>Commenting as: {{ user.username }}</p>
+        {% else %}
+            <p>To comment, you need to login or register</p>
+        {% endif %}
+        <form method="post">
+            {{ comment_form | crispy }}
+            {% csrf_token %}
+            
+            {% if user.is_authenticated %}
+                <button type="submit">Comment</button>
+            {% else %}
+                <button type="submit" disabled>Comment</button><span><em>Login to register</em></span>
+            {% endif %}
+        </form>
     </div>
 
     <!-- Displaying count of comments -->

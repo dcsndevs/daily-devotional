@@ -28,7 +28,7 @@
             <ul>
             <li><a href="{% url 'daily' %}">Home</a></li>
             <li><a href="{% url 'archive' %}">Dev Archive</a></li>
-            <li><a href="{% url 'member_area' %}">Member Area</a></li>
+            <li><a href="{% url 'daily' %}">Member Area</a></li>
             {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
