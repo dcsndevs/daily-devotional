@@ -1,7 +1,12 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from .models import Post, Comment
 from django_summernote.admin import SummernoteModelAdmin
 
+class CustomUserAdmin(BaseUserAdmin):
+    list_filter = ('is_active', 'is_superuser', 'date_joined')
+    list_display = ('username', 'is_active', 'first_name', 'last_name', 'email')
     
 # Register your models here.
 @admin.register(Post)
@@ -24,3 +29,5 @@ class CommentAdmin(admin.ModelAdmin):
     def approve_comments(self, request, queryset):
         queryset.update(approved=False)
 
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
