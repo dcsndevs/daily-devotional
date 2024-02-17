@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.display_membership, name='membership'),
     path('create/', views.new_membership, name='new_membership'),
+    path('', views.display_membership, name='membership'),
     #path('<slug:owner>/', views.new_membership, name='new_membership'),
     #path('comment/<int:comment_id>/like/', views.like_comment, name='like_comment'),
     #path('<slug:slug>/edit_comment/<int:comment_id>', views.comment_edit, name='comment_edit'),

@@ -18,9 +18,9 @@
             {% csrf_token %}
             
             {% if user.is_authenticated %}
-                <button type="submit">Comment</button>
+                <button type="submit">Register</button>
             {% else %}
-                <button type="submit" disabled>Comment</button><span><em>Login to register</em></span>
+                <button type="submit" disabled>Register</button><span><em>Register as a site member before you can create a pofile.</em></span>
             {% endif %}
         </form>
 

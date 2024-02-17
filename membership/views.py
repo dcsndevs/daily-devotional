@@ -17,15 +17,26 @@ def display_membership(request):
         
         
     else:
-        if request.method == 'POST':
-            creation_form = MembershipForm(data=request.POST)
-            if creation_form.is_valid():
-                creation = creation_form.save(commit=False)
-                creation.author = request.user
-                creation.save()
+        # if request.method == 'POST':
+        #     creation_form = MembershipForm(data=request.POST)
+        #     if creation_form.is_valid():
+        #         creation = creation_form.save(commit=False)
+        #         creation.author = request.user
+        #         creation.save()
         
-        return render(request, 'membership/create.html', {'creation_form': MembershipForm(),})
+        return render(request, 'membership/create.html', {'creation_form': MembershipForm(user_id=request.user.id),})
     
     
 def new_membership(request):
-    return render(request, 'membership/create.html', {'creation_form': MembershipForm(),})
+    if request.method == "POST":
+        creation_form = MembershipForm(request.POST, user_id=request.user.id)
+        if creation_form.is_valid():
+            creation_form.save(user_id=request.user.id)
+            messages.add_message(request, messages.SUCCESS, "You are now a new member!")
+
+    creation_form = MembershipForm(user_id=request.user.id)
+    profile = Membership.objects.filter(status=1).first()
+    return render(request, 'membership/create.html', { 'profile': profile,
+                                                        'creation_form': creation_form,
+                                                    }
+                  )
