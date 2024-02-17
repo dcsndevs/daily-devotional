@@ -49,29 +49,32 @@ def post_detail(request, slug):
 def current_date_devotional(request):
     current_date = timezone.now().date()
     post = Post.objects.filter(active_date=current_date, status=1).first()
-    comments = post.comments.all().order_by("-created_on")
-    comment_count = post.comments.filter(approved=True).count()
-    
-    if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            comment.save()
-            messages.add_message(
-            request, messages.SUCCESS,
-            'Comment submitted successfully!'
-        )
-       
-    return render(request, 'devotional/index.html', 
-                            {
-                                'post': post,
-                                "comments": comments,
-                                "comment_count": comment_count,
-                                'comment_form': CommentForm()
-                            },
-        )
+    if post:
+        comments = post.comments.all().order_by("-created_on")
+        comment_count = post.comments.filter(approved=True).count()
+        
+        if request.method == "POST":
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.save()
+                messages.add_message(
+                request, messages.SUCCESS,
+                'Comment submitted successfully!'
+            )
+        
+        return render(request, 'devotional/index.html', 
+                                {
+                                    'post': post,
+                                    "comments": comments,
+                                    "comment_count": comment_count,
+                                    'comment_form': CommentForm()
+                                },
+            )
+    else:
+        return HttpResponseRedirect('/archive')
 
 
 def post_like(request, slug):

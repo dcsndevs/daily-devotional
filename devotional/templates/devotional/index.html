@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {% if object %}{{ object.title }}{% else %}No Post for Today{% endif %}
+    {% if post %}{{ post.title }}{% else %}No Post for Today{% endif %}
 {% endblock %}
 
 {% block content %}
