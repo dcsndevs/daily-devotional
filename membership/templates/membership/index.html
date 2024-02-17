@@ -4,23 +4,28 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-{{ profile.full_name }}'s Profile
+{% if user.is_authenticated and profile.owner == user %}
+    {{ profile.full_name }}'s Profile
+{% else %}
+    No Membership Found
+{% endif %}
 {% endblock %}
 
 {% block content %}
-
-    <ul>
-        <h2>{{ profile.full_name }}</h2>
-        </p>{{ profile.email }}</p>
-        </p>{{ profile.owner }}</p>
-        </p>{{ profile.picture }}</p>
-        </p>{{ profile.bio }}</p>
-        </p>{{ profile.location }}</p>
-        </p>{{ profile.phone }}</p>
-        </p>{{ profile.joined_date }}</p>
-    </ul>
-
-
+    {% if user.is_authenticated and profile.owner == user %}
+        <ul>
+            <h2>{{ profile.full_name }}</h2>
+            </p>{{ profile.email }}</p>
+            </p>{{ profile.owner }}</p>
+            </p>{{ profile.picture }}</p>
+            </p>{{ profile.bio }}</p>
+            </p>{{ profile.location }}</p>
+            </p>{{ profile.phone }}</p>
+            </p>{{ profile.joined_date }}</p>
+        </ul>
+    {% else %}
+    <a href="create/">Create one now!</a>
+    {% endif %}
 {% endblock %}
 
 {% block extras %}

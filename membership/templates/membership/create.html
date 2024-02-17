@@ -1,19 +1,32 @@
-
-<p>Creation siide of things</p>
-
-<!-- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {{ prodile.email }}
+{% if user.is_authenticated %}
+    New Membership Creation
+{% endif %}
 {% endblock %}
 
 {% block content %}
- 
+    {% if user.is_authenticated and profile.owner == user %}
+        You already have a user profile! Click Member Area link above.
+    {% else %}
+        <form method="post">
+            {{ creation_form | crispy }}
+            {% csrf_token %}
+            
+            {% if user.is_authenticated %}
+                <button type="submit">Comment</button>
+            {% else %}
+                <button type="submit" disabled>Comment</button><span><em>Login to register</em></span>
+            {% endif %}
+        </form>
+
+    {% endif %}
 {% endblock %}
 
 {% block extras %}
 <script src="{% static 'js/comments.js' %}"></script>
-{% endblock %} -->
+{% endblock %}

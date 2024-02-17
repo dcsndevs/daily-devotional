@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils import timezone
 from django.views import generic, View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpRequest, request
 from django.utils import timezone
 from django.contrib import messages
 from django.http import JsonResponse
@@ -10,7 +10,7 @@ from .forms import MembershipForm
 
 
 # Create your views here.
-def create_membership(request):
+def display_membership(request):
     profile = Membership.objects.filter(status=1).first()
     if profile:
         return render(request, 'membership/index.html', { 'profile': profile,})
@@ -25,3 +25,7 @@ def create_membership(request):
                 creation.save()
         
         return render(request, 'membership/create.html', {'creation_form': MembershipForm(),})
+    
+    
+def new_membership(request):
+    return render(request, 'membership/create.html', {'creation_form': MembershipForm(),})
