@@ -11,7 +11,7 @@ from .forms import MembershipForm
 
 # Create your views here.
 def create_membership(request):
-    profile = Membership.objects.filter(status=1)
+    profile = Membership.objects.filter(status=1).first()
     if profile:
         return render(request, 'membership/index.html', { 'profile': profile,})
         
