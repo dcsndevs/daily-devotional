@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Edit Membership Details
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <ul>
+        <h2>{{ profile.full_name }}</h2>
+        </p>{{ profile.email }}</p>
+        </p>{{ profile.owner }}</p>
+        </p>{{ profile.picture }}</p>
+        </p>{{ profile.bio }}</p>
+        </p>{{ profile.location }}</p>
+        </p>{{ profile.phone }}</p>
+        </p>{{ profile.joined_date }}</p>
+    </ul>
+    <button class="btn btn-delete" profile_id="{{ owner.id }}">Delete Profile instead</button>
+    <button class="btn btn-edit" profile_id="{{ owner.id }}">Prefill Form</button>
+
+    <form method="post">
+        {{ edit_form | crispy }}
+        {% csrf_token %}
+        
+        {% if user.is_authenticated %}
+            <button type="submit">Enter</button>
+        {% else %}
+            <button type="submit" disabled>Edit</button><span><em>Login to Edit a pofile.</em></span>
+        {% endif %}
+    </form>
+    {% else %}
+        You have not logged in!
+    {% endif %}
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/profiles.js' %}"></script>
+{% endblock %}
