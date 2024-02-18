@@ -1,5 +1,5 @@
 const editButtons = document.getElementsByClassName("btn-edit");
-const commentText = document.getElementById("id_body");
+const commentText = document.getElementById("id_bio");
 const commentForm = document.getElementById("commentForm");
 const submitButton = document.getElementById("submitButton");
 
@@ -39,7 +39,7 @@ for (let button of editButtons) {
 */
 for (let button of deleteButtons) {
     button.addEventListener("click", (e) => {
-      let commentId = e.target.getAttribute("comment_id");
+      let commentId = e.target.getAttribute("owner_id");
       deleteConfirm.href = `delete_comment/${commentId}`;
       deleteModal.show();
     });

@@ -18,3 +18,12 @@ class MembershipForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    
+    widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'picture': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'bio': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),  # Use type='number' and pattern to enforce numeric input
+        }

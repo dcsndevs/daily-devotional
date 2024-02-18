@@ -23,10 +23,10 @@
             </p>{{ profile.phone }}</p>
             </p>{{ profile.joined_date }}</p>
         </ul>
-        <a href="{% url 'update_profile' pk=profile.id %}">Update Profile</a>
-        <a href="edit/">Edit!</a>
+        <a href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a>
+        <a href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a>
     {% else %}
-    <a href="create/">Create one now!</a>
+    <a href="{% url 'delete_membership_profile' pk=request.id %}">Create one now!</a>
     {% endif %}
 {% endblock %}
 

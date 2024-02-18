@@ -39,8 +39,8 @@ for (let button of editButtons) {
 */
 for (let button of deleteButtons) {
     button.addEventListener("click", (e) => {
-      let profileId = e.target.getAttribute("owner_id");
-      deleteConfirm.href = `delete_profile/${profileId}`;
+      let profileId = e.target.getAttribute("profile.id");
+      deleteConfirm.href = `delete_member/${profileId}`;
       deleteModal.show();
     });
   }

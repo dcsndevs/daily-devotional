@@ -12,11 +12,14 @@
 {% block content %}
     {% if user.is_authenticated %}
         <form method="post">
-            {{ form.as_p }}
+            
             {% csrf_token %}
             
             {% if user.is_authenticated %}
-                <button type="submit">Update</button>
+            <p>This can not be Undone!</p>
+            <p>Are you sure you want to delete</p>
+                <a href="/profile" class="btn btn-secondary">No</a>
+                <button type="submit" class="btn btn-danger">Yes</button>
             {% else %}
                 You do not have a profile!
             {% endif %}
@@ -25,4 +28,8 @@
     {% else %}
         You are not logged in or you do not have a profile yet.
     {% endif %}
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
