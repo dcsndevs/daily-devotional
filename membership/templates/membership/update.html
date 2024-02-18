@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Update Member Profile
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            
+            {% if user.is_authenticated %}
+                <button type="submit">Update</button>
+            {% else %}
+                You do not have a profile!
+            {% endif %}
+        </form>
+        
+    {% else %}
+        You are not logged in or you do not have a profile yet.
+    {% endif %}
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}

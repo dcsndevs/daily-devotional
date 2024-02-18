@@ -23,6 +23,7 @@
             </p>{{ profile.phone }}</p>
             </p>{{ profile.joined_date }}</p>
         </ul>
+        <a href="{% url 'update_profile' pk=profile.id %}">Update Profile</a>
         <a href="edit/">Edit!</a>
     {% else %}
     <a href="create/">Create one now!</a>

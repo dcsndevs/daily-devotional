@@ -8,4 +8,5 @@ urlpatterns = [
     path('edit/', views.edit_membership, name='edit_membership'),
     path('<slug:slug>/edit_profile/<int:owner_id>', views.edit_profile, name='edit_profile'),
     path('<slug:slug>/delete_profile/<int:owner_id>', views.delete_profile, name='delete_profile'),
+    path('edit/<int:pk>/', views.update.as_view(), name='update_profile')
 ]

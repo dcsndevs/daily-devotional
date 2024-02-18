@@ -21,8 +21,8 @@
         </p>{{ profile.phone }}</p>
         </p>{{ profile.joined_date }}</p>
     </ul>
-    <button class="btn btn-delete" profile_id="{{ owner.id }}">Delete Profile instead</button>
-    <button class="btn btn-edit" profile_id="{{ owner.id }}">Prefill Form</button>
+    <button class="btn btn-delete" owner_id="{{ profile.owner.id }}">Delete Profile instead</button>
+    <button class="btn btn-edit" owner_id="{{ profile.owner.id }}">Prefill Form</button>
 
     <form method="post">
         {{ edit_form | crispy }}
@@ -37,6 +37,32 @@
     {% else %}
         You have not logged in!
     {% endif %}
+<div>
+    <!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1"
+aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"
+        id="deleteModalLabel">Delete comment?</h5>
+      <button type="button" class="btn-close"
+        data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to delete your comment?
+      This action cannot be undone.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary"
+        data-bs-dismiss="modal">Close</button>
+      <a id="deleteConfirm" href="#" class="btn
+        btn-danger">Delete</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 {% endblock %}
 
 {% block extras %}

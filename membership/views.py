@@ -1,17 +1,18 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils import timezone
-from django.views import generic, View
+from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
 from django.http import JsonResponse
+from django.urls import reverse_lazy
 from .models import Membership
 from .forms import MembershipForm
 
 
 # Create your views here.
 def display_membership(request):
-    profile = Membership.objects.filter(status=1).first()
+    profile = Membership.objects.filter(owner=request.user).first()
     if profile:
         return render(request, 'membership/index.html', { 'profile': profile,})
         
@@ -78,3 +79,11 @@ def delete_profile(request, id, owner_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own profile!')
 
     return HttpResponseRedirect(reverse('edit_membership', args=[id]))
+
+
+class update(UpdateView):
+    model = Membership
+    # form_class = MembershipForm
+    template_name = 'membership/update.html'
+    fields = ['full_name', 'email', 'picture', 'bio', 'location', 'phone',]
+    success_url = reverse_lazy('membership')
