@@ -26,7 +26,8 @@
         <a href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a>
         <a href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a>
     {% else %}
-    <a href="{% url 'delete_membership_profile' pk=request.id %}">Create one now!</a>
+    <p>To access the member area, you need to create a profile.</p>
+    <a href="{% url 'new_membership_profile' %}">Create one now!</a>
     {% endif %}
 {% endblock %}
 

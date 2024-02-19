@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Update Member Profile
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Profile Deleted Successfully</h1>
+        <p>Your Member profile has been successfully deleted.</p>
+        <a href="/">Go to Devotional Area</a>
+    {% else %}
+    <h1>Profile Deleted Successfully</h1>
+    <p>Your Member profile has been successfully deleted.</p>
+    <a href="{% url 'devotional:index' %}">Go to Devotional Area</a>
+    {% endif %}
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}
