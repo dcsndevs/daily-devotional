@@ -17,7 +17,7 @@
             <p>{{ error }}</p>
         {% endif %}
 
-        <div id="scripture-container"></div>
+        <div id="scripture-container">loren</div>
     </body>
 
  
@@ -26,34 +26,41 @@
 {% block js_script %}
 <script>
     $(document).ready(function() {
-        $('.scripture-link').click(function(e) {
-            e.preventDefault(); // Prevent default link behavior
-            
-            var scripture = $(this).data('scripture');
-            var apiUrl = 'https://bible-api.com/' + scripture + '?translation=kjv&verse_numbers=true';
-    
-            // Make AJAX request to fetch scripture data
-            $.ajax({
-                url: apiUrl,
-                method: 'GET',
-                success: function(response) {
-                    var verses = response.verses;
-                    var verseText = '';
-    
-                    // Construct verse text
-                    for (var i = 0; i < verses.length; i++) {
-                        verseText += verses[i].verse + '. ' + verses[i].text + '<br>';
-                    }
-    
-                    // Display scripture data on the page
-                    $('#scripture-container').html('<h2>' + response.book_name + ' ' + response.verses[0].chapter + '</h2>' + verseText);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching scripture:', error);
-                    // Handle error
+    $('.scripture-link').click(function(e) {
+        e.preventDefault(); // Prevent default link behavior
+        
+        var scripture = $(this).data('scripture');
+        var apiUrl = 'https://bible-api.com/' + scripture + '?translation=kjv&verse_numbers=true';
+
+        // Make AJAX request to fetch scripture data
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            success: function(response) {
+                // Parse JSON response
+                var scriptureData = JSON.parse(response);
+
+                // Extract relevant data
+                var bookName = scriptureData.book_name;
+                var chapter = scriptureData.chapter;
+                var verses = scriptureData.verses;
+
+                // Construct HTML content for verses
+                var verseText = '<h2>' + bookName + ' ' + chapter + '</h2>';
+                for (var i = 0; i < verses.length; i++) {
+                    verseText += '<p>' + verses[i].verse + '. ' + verses[i].text + '</p>';
                 }
-            });
+
+                // Display scripture data on the page
+                $('#scripture-container').html(verseText);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching scripture:', error);
+                // Handle error
+            }
         });
     });
+});
+
     </script>
 {% endblock %}

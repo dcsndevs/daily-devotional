@@ -3,7 +3,6 @@ from . import views
 from .views import current_date_devotional
 
 urlpatterns = [
-    path('', current_date_devotional, name='daily'), 
     path('archive', views.PostList.as_view(), name='archive'),
     path('create/', views.create_post, name='create_post'),
     path('comment/<int:comment_id>/like/', views.like_comment, name='like_comment'),
@@ -13,4 +12,6 @@ urlpatterns = [
     path('<slug:slug>/edit_comment/<int:comment_id>', views.comment_edit, name='comment_edit'),
     path('<slug:slug>/delete_comment/<int:comment_id>', views.comment_delete, name='comment_delete'),
     path('view/<str:scripture>/', views.view_verse, name='view_verse'),
+    path('', current_date_devotional, name='daily'), 
+
 ]

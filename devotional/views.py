@@ -155,9 +155,9 @@ def view_verse(request, scripture):
         chapter = verse_data['verses'][0]['chapter']
         verses = verse_data['verses']
         verse_text = "\n".join([f"{verse['verse']}. {verse['text']}" for verse in verses])
-        return render(request, 'view_verse.html', {'book_name': book_name, 'chapter': chapter, 'verse_text': verse_text})
+        return render(request, 'devotional/view_verse.html', {'book_name': book_name, 'chapter': chapter, 'verse_text': verse_text})
     else:
-        return render(request, 'view_verse.html', {'error': 'Verse not found'})
+        return render(request, 'devotional/view_verse.html', {'error': 'Verse not found'})
 
 
 def create_post(request):
@@ -172,7 +172,7 @@ def create_post(request):
             response = requests.get(api_url)
             if response.status_code == 200:
                 passage = response.json()['text']
-                return render(request, 'post_created.html', {'title': title, 'verse': verse, 'passage': passage})
+                return render(request, 'devotional/post_created.html', {'title': title, 'verse': verse, 'passage': passage})
     else:
         form = PostForm()
-    return render(request, 'create_post.html', {'form': form})
+    return render(request, 'devotional/create_post.html', {'form': form})
