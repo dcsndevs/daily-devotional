@@ -13,15 +13,22 @@
 
 {% block content %}
     {% if user.is_authenticated and profile.owner == user %}
+        <div class="image-container">
+            {% if "placeholder" in profile.picture.url %}
+            <img src="{% static 'images/default.jpg' %}" class="img-fluid img-thumbnail" alt="placeholder image">
+            {% else %}
+            <img src="{{ profile.picture.url }}" class="img-fluid img-thumbnail" alt="{{ profile.title }}">
+            {% endif %}
+        </div>
         <ul>
             <h2>{{ profile.full_name }}</h2>
-            </p>{{ profile.email }}</p>
-            </p>{{ profile.owner }}</p>
-            </p>{{ profile.picture }}</p>
-            </p>{{ profile.bio }}</p>
-            </p>{{ profile.location }}</p>
-            </p>{{ profile.phone }}</p>
-            </p>{{ profile.joined_date }}</p>
+            <p>{{ profile.email }}</p>
+            <p>{{ profile.owner }}</p>
+            <p><img src="{{ profile.picture.url }}" class="img-fluid img-thumbnail" alt="..."></p>
+            <p>{{ profile.bio }}</p>
+            <p>{{ profile.location }}</p>
+            <p>{{ profile.phone }}</p>
+            <p>{{ profile.joined_date }}</p>
         </ul>
         <a href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a>
         <a href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a>
