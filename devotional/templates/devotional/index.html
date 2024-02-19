@@ -45,7 +45,7 @@
         {% if user.is_authenticated %}
             <p>Commenting as: {{ user.username }}</p>
         {% else %}
-            <p>To comment, you need to 
+            <p>To make and like comments, you need to 
                 <a href="{% url 'account_signup' %}">Login</a> 
                 or 
                 <a href="{% url 'account_signup' %}">Register</a></p>
@@ -95,23 +95,31 @@
                 {{ comment.body | linebreaks }}
                 <p>Likes: {{ comment.likes2_count }}</p>
                 {% if user.is_authenticated %}
-                    <form action="{% url 'like_comment' comment.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="like-comment">
+                    
                             {% if request.user in comment.likes2.all %}
+                            <form action="{% url 'like_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="like-comment">
                                 Unlike
+                            </button>
+                            {% elif request.user == comment.author %}
+                                <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
+                                <button class="btn btn-delete"comment_id="{{ comment.id }}">Delete</button>
+                                You're the author(Icon here)
                             {% else %}
-                                Like
+                            <form action="{% url 'like_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="like-comment">
+                                like
+                            </button>
                             {% endif %}
-                        </button>
+                        
                     </form>
                 {% else %}
-                    <span>Login to like this comment</span>
+                    <span><i class="far fa-heart"></i> or remove</span>
                 {% endif %}
             </div>
-            {% if user.is_authenticated and comment.author == user %}
-                <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
-            {% endif %}
+
         <!-- Our for loop ends here -->
         {% endfor %}
     </div>
@@ -119,6 +127,7 @@
     </div>
     </div>  
 {% endblock %}
-{% block extras %}
+
+{% block js_script %}
 <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}

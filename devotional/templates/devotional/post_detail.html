@@ -8,30 +8,30 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>Author: {{ post.author }}</p>
-    <p>Active Date: {{ post.active_date }}</p>
-    <p>Memory Verse: {{ post.memory_verse }}</p>
-    <p>{{ post.content }}</p>
-    <p>
-        {% if user.is_authenticated %}
-            <form action="{% url 'post_like' post.slug %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="post-like">
-                    {% if user in post.likes.all %}
-                        Unlike
-                    {% else %}
-                        Like
-                    {% endif %}
-                </button>
-            </form>
-        {% else %}
-    <span>Login to like this post</span>
+  <h1>{{ post.title }}</h1>
+  <p>Author: {{ post.author }}</p>
+  <p>Active Date: {{ post.active_date }}</p>
+  <p>Memory Verse: {{ post.memory_verse }}</p>
+  <p>{{ post.content }}</p>
+  <div>
+    {% if user.is_authenticated %}
+          <form action="{% url 'post_like' post.slug %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="post-like">
+                  {% if user in post.likes.all %}
+                      Unlike
+                  {% else %}
+                      Like
+                  {% endif %}
+              </button>
+          </form>
+    {% else %}
+      <span>Login to like this post</span>
+    {% endif %}
+    <span>{{ post.number_of_likes }}</span>
+  </div>
 
-{% endif %}
-        <span>{{ post.number_of_likes }}</span>
-    </p>
-    <div class="col-1">
+  <div class="col-1">
         {% with comments.count as total_comments %}
         <strong class="text-secondary"><i class="far fa-comments"></i>
             {{ total_comments }}
@@ -45,22 +45,25 @@
       {% if user.is_authenticated %}
           <p>Commenting as: {{ user.username }}</p>
       {% else %}
-          <p>To comment, you need to login or register</p>
+          <p>To make and like comments, you need to 
+              <a href="{% url 'account_signup' %}">Login</a> 
+              or 
+              <a href="{% url 'account_signup' %}">Register</a></p>
       {% endif %}
-      <form method="post">
-          {{ comment_form | crispy }}
-          {% csrf_token %}
+      {% if user.is_authenticated %}
+          <form method="post">
+              {{ comment_form | crispy }}
+              {% csrf_token %}
+              
+              
+          <button type="submit">Comment</button>
+          </form>
+      {% else %}
+      {% endif %}
           
-          {% if user.is_authenticated %}
-              <button type="submit">Comment</button>
-          {% else %}
-              <button type="submit" disabled>Comment</button><span><em>Login to register</em></span>
-          {% endif %}
-      </form>
-    </div>
+  </div>
 
-
-    <!-- Displaying count of comments -->
+  <!-- Displaying count of comments -->
   <div class="row">
     <div class="col-12">
       <strong class="text-secondary">
@@ -97,19 +100,29 @@
               {% endif %}
               <p>Likes: {{ comment.likes2_count }}</p>
               {% if user.is_authenticated %}
-                  <form action="{% url 'like_comment' comment.id %}" method="POST">
-                      {% csrf_token %}
-                      <button type="submit" class="like-comment">
-                          {% if request.user in comment.likes2.all %}
-                              Unlike
-                          {% else %}
-                              Like
-                          {% endif %}
-                      </button>
-                  </form>
-              {% else %}
-                  <span>Login to like this comment</span>
-              {% endif %}
+                    
+                            {% if request.user in comment.likes2.all %}
+                            <form action="{% url 'like_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="like-comment">
+                                Unlike
+                            </button>
+                            {% elif request.user == comment.author %}
+                                <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
+                                <button class="btn btn-delete"comment_id="{{ comment.id }}">Delete</button>
+                                You're the author(Icon here)
+                            {% else %}
+                            <form action="{% url 'like_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="like-comment">
+                                like
+                            </button>
+                            {% endif %}
+                        
+                    </form>
+                {% else %}
+                    <span><i class="far fa-heart"></i> or remove</span>
+                {% endif %}
 
           </div>
           
@@ -146,6 +159,6 @@
 
 {% endblock %}
 
-{% block extras %}
+{% block js_script %}
 <script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
