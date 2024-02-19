@@ -52,9 +52,10 @@
             <p>Commenting as: {{ user.username }}</p>
         {% else %}
             <p>To make and like comments, you need to 
-                <a href="{% url 'account_signup' %}">Login</a> 
+                <a href="{% url 'account_login' %}">Login</a> 
                 or 
-                <a href="{% url 'account_signup' %}">Register</a></p>
+                <a href="{% url 'account_signup' %}">Register</a>
+            </p>
         {% endif %}
         {% if user.is_authenticated %}
             <form method="post">

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpRequest
 from django.utils import timezone
 from django.contrib import messages
 from .models import Post, Comment
-from .forms import CommentForm, PostForm
+from .forms import CommentForm
 
 
 class PostList(generic.ListView):

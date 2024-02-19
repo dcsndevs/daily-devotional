@@ -7,16 +7,38 @@
 {% if user.is_authenticated %}
     Bible App
 {% else %}
-    Login to access the Bibkle App
+    Login to access the Bible App
 {% endif %}
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p>Welcome to our Bible app</p>
-    </div>
+    {% if user.is_authenticated %}
+        <div>
+            <form id="bible-form">
+                <label for="book-select">Select:</label>
+                <select id="book-select">
+                    <option value="" selected>--Book--</option>
+                </select>
+            
+                <label for="chapter-select">Select:</label>
+                <select id="chapter-select">
+                    <option value="" selected>--Chapter--</option>
+                </select>
+                
+                <button type="submit">Go!</button>
+            </form>
+            <h2><div id="scripture-title"></div></h2>
+            <p><div id="scripture-content"></div></p>
+        </div>
+    {% else %}
+    <p>To access the Bible app, you need to
+                <a href="{% url 'account_login' %}">Login</a> 
+                or 
+                <a href="{% url 'account_signup' %}">Register</a>
+            </p>
+    {% endif %}
 {% endblock %}
 
 {% block extras %}
-<script src="{% static 'js/comments.js' %}"></script>
+<script src="{% static 'js/bible.js' %}"></script>
 {% endblock %}
