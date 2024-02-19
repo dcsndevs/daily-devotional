@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Bible App
+{% else %}
+    Login to access the Bibkle App
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>Welcome to our Bible app</p>
+    </div>
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}

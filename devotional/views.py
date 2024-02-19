@@ -2,8 +2,7 @@ import requests
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils import timezone
 from django.views import generic, View
-from django.http import HttpRequest
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest
 from django.utils import timezone
 from django.contrib import messages
 from .models import Post, Comment
@@ -158,21 +157,3 @@ def view_verse(request, scripture):
         return render(request, 'devotional/view_verse.html', {'book_name': book_name, 'chapter': chapter, 'verse_text': verse_text})
     else:
         return render(request, 'devotional/view_verse.html', {'error': 'Verse not found'})
-
-
-def create_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            verse = form.cleaned_data['verse']
-            
-            # Make request to Bible API
-            api_url = f'https://bible-api.com/{verse}'
-            response = requests.get(api_url)
-            if response.status_code == 200:
-                passage = response.json()['text']
-                return render(request, 'devotional/post_created.html', {'title': title, 'verse': verse, 'passage': passage})
-    else:
-        form = PostForm()
-    return render(request, 'devotional/create_post.html', {'form': form})

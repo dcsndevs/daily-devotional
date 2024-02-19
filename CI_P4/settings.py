@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'devotional',
     'membership',
+    'bible',
 ]
 
 SITE_ID = 1
