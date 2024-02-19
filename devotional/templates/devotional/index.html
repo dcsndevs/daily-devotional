@@ -10,7 +10,7 @@
 {% block content %}
     <h1>{{ post.title }}</h1>
     <p>Author: {{ post.author }}</p>
-    <p>Active Date: {{ post.active_date }}</p>
+    <p>Date: {{ post.active_date }}</p>
     <p>Memory Verse: {{ post.memory_verse }}</p>
     <p>{{ post.content }}</p>
     <p>
@@ -45,18 +45,22 @@
         {% if user.is_authenticated %}
             <p>Commenting as: {{ user.username }}</p>
         {% else %}
-            <p>To comment, you need to login or register</p>
+            <p>To comment, you need to 
+                <a href="{% url 'account_signup' %}">Login</a> 
+                or 
+                <a href="{% url 'account_signup' %}">Register</a></p>
         {% endif %}
-        <form method="post">
-            {{ comment_form | crispy }}
-            {% csrf_token %}
+        {% if user.is_authenticated %}
+            <form method="post">
+                {{ comment_form | crispy }}
+                {% csrf_token %}
+                
+                
+            <button type="submit">Comment</button>
+            </form>
+        {% else %}
+        {% endif %}
             
-            {% if user.is_authenticated %}
-                <button type="submit">Comment</button>
-            {% else %}
-                <button type="submit" disabled>Comment</button><span><em>Login to register</em></span>
-            {% endif %}
-        </form>
     </div>
 
     <!-- Displaying count of comments -->
