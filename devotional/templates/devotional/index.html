@@ -13,6 +13,18 @@
     <p>Date: {{ post.active_date }}</p>
     <p>Memory Verse: {{ post.memory_verse }}</p>
     <p>{{ post.content }}</p>
+    <p>Bible Reading Plan: {{ post.bible_reading_plan1 }} | {{ post.bible_reading_plan2 }}</p>
+    <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
+    <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">Mark 2:2</a></li>
+    <li><a href="#" class="scripture-link" data-scripture="{{ post.bible_reading_plan2 }}">{{ post.bible_reading_plan1 }}</a></li>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
     <p>
         {% if user.is_authenticated %}
             <form action="{% url 'post_like' post.slug %}" method="POST">
@@ -26,9 +38,8 @@
                 </button>
             </form>
         {% else %}
-    <span>Login to like this post</span>
-
-    {% endif %}
+            <span>Login to like this post</span>
+        {% endif %}
         <span>{{ post.number_of_likes }}</span>
     </p>
     <div class="col-1">

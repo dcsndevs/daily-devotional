@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Verse</title>
+</head>
+<!-- <body>
+    {% if verse %}
+        <h1>Verse</h1>
+        <p>{{ verse }}</p>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body> -->
+<body>
+    {% if book_name and chapter and verse_text %}
+        <h1>{{ book_name }} {{ chapter }}</h1>
+        <pre>{{ verse_text }}</pre>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>
