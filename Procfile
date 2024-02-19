@@ -1,1 +1,1 @@
-web: gunicorn CI_P4.wsgi
+web: gunicorn p4.wsgi
