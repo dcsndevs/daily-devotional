@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .views import current_date_devotional
 
 urlpatterns = [
     path('archive', views.PostList.as_view(), name='archive'),
@@ -10,6 +9,6 @@ urlpatterns = [
     path('<slug:slug>/edit_comment/<int:comment_id>', views.comment_edit, name='comment_edit'),
     path('<slug:slug>/delete_comment/<int:comment_id>', views.comment_delete, name='comment_delete'),
     path('view/<str:scripture>/', views.view_verse, name='view_verse'),
-    path('', current_date_devotional, name='daily'), 
+    path('', views.current_date_devotional, name='daily'), 
 
 ]
