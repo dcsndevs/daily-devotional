@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-APPROVED = ((0, "True"), (1, "False"))
+APPROVED = ((1, "True"), (0, "False"))
+STATUS = ((1, "True"), (0, "False"))
 
 class Event(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_posts")
@@ -15,6 +16,7 @@ class Event(models.Model):
     registration_expires = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=200, null=True, blank=True)
     banner = CloudinaryField('image', default='placeholder3')
+    status = models.IntegerField(choices=STATUS, default=1)
     
 
 class Ateendee(models.Model):
