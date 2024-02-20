@@ -13,7 +13,7 @@
     {% if user.is_authenticated and profile.owner == user %}
         You already have a user profile! Click Member Area link above.
     {% else %}
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {{ creation_form | crispy }}
             {% csrf_token %}
             

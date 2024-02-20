@@ -5,7 +5,7 @@ from django import forms
 class MembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
-        fields = ('full_name', 'email', 'picture', 'bio', 'location', 'phone',)
+        fields = ['full_name', 'email', 'picture', 'bio', 'location', 'phone',]
         
     def __init__(self, *args, **kwargs):
         self.user_id = kwargs.pop('user_id', None)
@@ -25,5 +25,6 @@ class MembershipForm(forms.ModelForm):
             'picture': forms.FileInput(attrs={'class': 'form-control-file'}),
             'bio': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),  # Use type='number' and pattern to enforce numeric input
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),
         }
+    

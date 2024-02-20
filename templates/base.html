@@ -27,14 +27,15 @@
         <!-- You can add navigation, logo, etc. here -->
         <nav>
             <ul>
-            <li><a href="{% url 'daily' %}">Home</a></li>
-            <li><a href="{% url 'archive' %}">Dev Archive</a></li>
-            <li><a href="{% url 'bible' %}">Holy Bible</a></li>
-            <li><a href="{% url 'view_membership_profile' %}">Member Area</a></li>
+            <li class="nav-item"><a href="{% url 'daily' %}">Home</a></li>
+            <li class="nav-item"><a href="{% url 'archive' %}">Dev Archive</a></li>
             {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'bible' %}" aria-current="Bible app" >Holy Bible</a></li>
+            <li class="nav-item"><a href="{% url 'view_membership_profile' %}" aria-current="member area" >Member Area</a></li>
             <li class="nav-item">
-                <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="logout page" href="{% url 'account_logout' %}">Logout</a>
             </li>
+            
             <p>You are logged in as {{ user }}</p>
             {% else %}
             <li class="nav-item">

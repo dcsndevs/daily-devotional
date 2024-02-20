@@ -14,11 +14,7 @@
 {% block content %}
     {% if user.is_authenticated and profile.owner == user %}
         <div class="image-container">
-            {% if "placeholder" in profile.picture.url %}
             <img src="{% static 'images/default.jpg' %}" class="img-fluid img-thumbnail" alt="placeholder image">
-            {% else %}
-            <img src="{{ profile.picture.url }}" class="img-fluid img-thumbnail" alt="{{ profile.title }}">
-            {% endif %}
         </div>
         <ul>
             <h2>{{ profile.full_name }}</h2>
@@ -32,10 +28,13 @@
         </ul>
         <a href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a>
         <a href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a>
+    {% elif user.is_authenticated %}
+        <p>To access the member area, you need to create a profile.</p>
+        <a href="{% url 'new_membership_profile' %}">Create one now!</a>
     {% else %}
-    <p>To access the member area, you need to create a profile.</p>
-    <a href="{% url 'new_membership_profile' %}">Create one now!</a>
+        <p>You need to sign up using the register link in the menu above.</p>
     {% endif %}
+
 {% endblock %}
 
 {% block extras %}
