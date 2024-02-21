@@ -18,6 +18,9 @@ class Programmes(models.Model):
     banner = CloudinaryField('image', default='placeholder3')
     status = models.IntegerField(choices=STATUS, default=1)
     
+    def __str__(self):
+        return self.date_of_event
+    
 
 class Guest(models.Model):
     event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="anonymous_attendees")
@@ -25,6 +28,7 @@ class Guest(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     newsletter = models.IntegerField(choices=APPROVED, default=0)
+    
 
 
 class MemberGuest(models.Model):
