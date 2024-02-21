@@ -1,23 +1,18 @@
+import requests
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views.generic import ListView, DetailView
+from django.utils import timezone
+from django.views import generic, View
+from django.http import HttpResponseRedirect, HttpRequest
+from django.utils import timezone
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from .models import Event
+from .models import Programmes
 
-class EventList(ListView):
-    
-    queryset = Event.objects.filter(status=1)
-    template_name = "events/index.html"
-    paginate_by = 6
+
+
+def current_Programme(request):
+    post = Programmes.objects.all().filter(status=0).first()
    
-
-class EventDetail(DetailView):
-    model = Event
-    template_name = 'events/event_detail.html'
-    context_object_name = 'post'
-    slug_url_kwarg = 'slug'
-
-
-def EventDetail2(request, slug):
-    post = get_object_or_404(Event, slug=slug)
-    return render(request, 'events/event_detail.html', {'post': post})
+    return render(request, 'events/index.html', 
+                                {
+                                    'post': post,
+                                },)

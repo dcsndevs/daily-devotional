@@ -2,10 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-APPROVED = ((1, "True"), (0, "False"))
-STATUS = ((1, "True"), (0, "False"))
+STATUS = ((0, "draft"), (1, "published"))
+APPROVED = ((0, "True"), (1, "False"))
 
-class Event(models.Model):
+class Programmes(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_posts")
     slug = models.SlugField(max_length=250, unique=True)
     title = models.CharField(max_length=200, unique=True)
@@ -19,17 +19,17 @@ class Event(models.Model):
     status = models.IntegerField(choices=STATUS, default=1)
     
 
-class Ateendee(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="anonymous_attendees")
+class Guest(models.Model):
+    event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="anonymous_attendees")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    newsletter = models.IntegerField(choices=APPROVED, default=1)
+    newsletter = models.IntegerField(choices=APPROVED, default=0)
 
 
-class MemberAteendee(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="profiled_member_attendees")
+class MemberGuest(models.Model):
+    event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="profiled_member_attendees")
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(unique=True)
-    newsletter = models.IntegerField(choices=APPROVED, default=1)
+    newsletter = models.IntegerField(choices=APPROVED, default=0)
