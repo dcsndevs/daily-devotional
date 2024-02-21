@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bible',
     'events',
     'newuser',
+    'home',
     
 ]
 

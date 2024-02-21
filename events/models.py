@@ -17,9 +17,13 @@ class Programmes(models.Model):
     location = models.CharField(max_length=200, null=True, blank=True)
     banner = CloudinaryField('image', default='placeholder3')
     status = models.IntegerField(choices=STATUS, default=1)
+
+    class Meta:
+        ordering = ['-registration_expires']
     
     def __str__(self):
-        return self.date_of_event
+        return f"{self.date_of_event} | {self.title}"
+    
     
 
 class Guest(models.Model):
