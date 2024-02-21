@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Recent Events
+    Devotional Archive
 {% endblock %}
 
 {% block content %}
     <h1>Archive</h1>
     <em><a href="{% url 'daily' %}">Today's Devotional</a></em>
     <ul>
-        {% for post in all_events %}
+        {% for post in object_list %}
             <li>
-                <h2><a href="{% url 'event_detail'' post.slug %}">{{ post.title }}</a></h2>
+                <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
                 <p>Author: {{ post.author }}</p>
-                <p>Date: {{ post.created_on }}</p>
+                <p>Date: {{ post.active_date }}</p>
             </li>
         {% empty %}
             <li>No posts available.</li>

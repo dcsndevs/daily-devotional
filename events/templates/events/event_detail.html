@@ -9,15 +9,9 @@
 
 {% block content %}
   <h1>{{ post.title }}</h1>
-  <p>Author: {{ post.author }}</p>
-  <p>Active Date: {{ post.active_date }}</p>
-  <p>Memory Verse: {{ post.memory_verse }}</p>
-  <p>{{ post.content }}</p>
-  <p>Bible Reading Plan: </p>
-
+  <p>Date: {{ post.active_date }}</p>
+  <p>{{ post.description }}</p>
+  
 
 {% endblock %}
 
-{% block js_script %}
-<script src="{% static 'js/comments.js' %}"></script>
-{% endblock %}

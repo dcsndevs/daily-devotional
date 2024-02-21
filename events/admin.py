@@ -8,6 +8,8 @@ class PostAdmin(SummernoteModelAdmin):
     list_display = ('title', 'slot', 'date_of_event')
     search_fields = ('title', 'slot', 'date_of_event')
     list_filter = ('title', 'date_of_event')
+    prepopulated_fields = {'slug': ('title',)}
+    summernote_fields = ('description',)
 
 @admin.register(Guest, MemberGuest)
 class Ateendee(admin.ModelAdmin):
