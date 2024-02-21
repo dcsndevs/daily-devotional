@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'membership',
     'bible',
     'events',
+    'newuser',
     
 ]
 

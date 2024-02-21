@@ -9,4 +9,4 @@ def register(request):
             return redirect('registration_success')  # Redirect to a success page after registration
     else:
         form = RegistrationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'newuser/signup.html', {'form': form})
