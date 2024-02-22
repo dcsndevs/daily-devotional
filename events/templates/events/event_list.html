@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% load crispy_forms_tags %}
 
+{% block title %}
+    All Events
+{% endblock %}
 
 {% block content %}
-    <em><a href="{% url 'daily' %}">Today's Devotional</a></em>
     <ul>
         {% for post in object_list %}
             <li>

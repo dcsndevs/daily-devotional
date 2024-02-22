@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Recent Events
+    Selected Event
 {% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.date_of_event }}</p>
     
+    <h1>{{ post.title }}</h1>
+
+    <p>{{ post.description }}</p>
+    <p>{{ post.date_of_event }}</p>
+
+    <p>{{ post.slot }}</p>
+
+    <p>{{ post.date_of_event }}</p>
+
+    <p>{{ post.registration_expires }}</p>
+
+    <p>{{ post.location }}</p>
+
+<hr>
+<div>
+    {% if user.is_authenticated %}
+        <p>Special reg coming soon</p>
+    {% else %}
+    <form method="post">
+        {{ form | crispy }}
+        {% csrf_token %}
+        <button class="btn btn-secondary" type="submit">Register</button>
+    </form>    
+    {% endif %}
+</div>    
 {% endblock %}

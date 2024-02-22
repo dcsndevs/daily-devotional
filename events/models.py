@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
+
 STATUS = ((0, "draft"), (1, "published"))
-APPROVED = ((0, "True"), (1, "False"))
 
 class Programmes(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_posts")
@@ -26,18 +26,9 @@ class Programmes(models.Model):
     
     
 
-class Guest(models.Model):
-    event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="anonymous_attendees")
+class Attendee(models.Model):
+    event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="anonymous_attendee")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    newsletter = models.IntegerField(choices=APPROVED, default=0)
-    
-
-
-class MemberGuest(models.Model):
-    event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="profiled_member_attendees")
-    first_name = models.CharField(max_length=50, null=True, blank=True)
-    last_name = models.CharField(max_length=50, null=True, blank=True)
-    email = models.EmailField(unique=True)
-    newsletter = models.IntegerField(choices=APPROVED, default=0)
+    newsletter = models.BooleanField(default=False)    

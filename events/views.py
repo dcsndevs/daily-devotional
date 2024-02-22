@@ -1,57 +1,36 @@
-import requests
-from django.shortcuts import render, get_object_or_404, reverse
-from django.utils import timezone
-from django.views import generic, View
-from django.http import HttpResponseRedirect, HttpRequest
-from django.utils import timezone
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views import generic
 from django.contrib import messages
-from .models import Programmes, MemberGuest, Guest
-from .forms import GuestForm, MemberGuestForm
+from .models import Programmes
+from .forms import GuestForm, EventRegistrationForm
 
 
 class PostList(generic.ListView):
-    queryset = Programmes.objects.filter(slot=50, status=0)
+    queryset = Programmes.objects.filter(slot=50, status=1)
     template_name = "events/event_list.html"
     paginate_by = 6    
 
 
 def post_detail(request, slug):
-    # post2 = Programmes.objects.all().filter(status=0).first()
-    post = get_object_or_404(Programmes, slug=slug, status=0)
+    post = get_object_or_404(Programmes, slug=slug, status=1)
     
     if request.method == "POST":
-        guest_form = GuestForm(data=request.POST)
-        if guest_form.is_valid():
-            guest = guest_form.save(commit=False)
-            guest.author = request.user
-            guest.post = post
-            guest.save()
-            messages.add_message(
-            request, messages.SUCCESS,
-            'Resgistration submitted successfully!'
-        )
-            
-    if request.method == "POST":
-        guest_form = MemberGuestForm(data=request.POST)
-        if guest_form.is_valid():
-            guest = guest_form.save(commit=False)
-            guest.author = request.user
-            guest.post = post
-            guest.save()
-            messages.add_message(
-            request, messages.SUCCESS,
-            'Resgistration submitted successfully!'
-        )
+        form = EventRegistrationForm(request.POST)
+        if form.is_valid():
+            post_id = post.id
+            form.instance.event_id = post_id
+            form.instance.author = request.user
+            form.save()
+            messages.success(
+                request,
+                'Registration submitted successfully!'
+            )
+            return redirect(reverse('home'))
+    else:
+        form = EventRegistrationForm()
+    return render(request, 'events/event_detail.html', {"post": post, 'form': form})
     
-    return render(
-        request,
-        "events/event_detail.html",
-        {
-            "post": post,
-            # "guest_form": guest_registration_form,
-            # "member_guest_form": member_guest_form
-        },
-    )
 
 
 def current_Programme(request):
@@ -69,26 +48,24 @@ def current_Programme(request):
             request, messages.SUCCESS,
             'Resgistration submitted successfully!'
         )
-            
-    if request.method == "POST":
-        guest_form = MemberGuestForm(data=request.POST)
-        if guest_form.is_valid():
-            guest = guest_form.save(commit=False)
-            guest.author = request.user
-            guest.post = post
-            guest.save()
-            messages.add_message(
-            request, messages.SUCCESS,
-            'Resgistration submitted successfully!'
-        )
-    
+                
     
     return render(
         request,
         "events/index.html",
         {
             "post": post,
-            #"guest_form": guest_form,
-            # "member_guest_form": member_guest_form
+            "guest_form": guest_form,
         },
     )
+
+
+def event_registration(request):
+    if request.method == 'POST':
+        form = EventRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('registration_success')
+    else:
+        form = EventRegistrationForm(user=request.user)
+    return render(request, 'event_registration.html', {'form': form})

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Programmes, Guest, MemberGuest
+from .models import Programmes, Attendee
 from django_summernote.admin import SummernoteModelAdmin
 
 
@@ -11,7 +11,7 @@ class PostAdmin(SummernoteModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('description',)
 
-@admin.register(Guest, MemberGuest)
+@admin.register(Attendee)
 class Ateendee(admin.ModelAdmin):
     list_display = ('event', 'last_name', 'email')
     search_fields = ('last_name', 'email')
