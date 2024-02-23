@@ -30,5 +30,5 @@ class Attendee(models.Model):
     event = models.ForeignKey(Programmes, on_delete=models.CASCADE, related_name="anonymous_attendee")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=False)
     newsletter = models.BooleanField(default=False)    
