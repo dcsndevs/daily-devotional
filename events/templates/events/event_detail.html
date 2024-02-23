@@ -21,19 +21,26 @@
 
 <p>{{ post.location }}</p>
 
+<p>{{ post.location }}</p>
+<p>Remaining Slot: {{ remaining_slot }}</p>
+
 <hr>
-<div>
-    {% if user.is_authenticated %}
-        <p>Special reg coming soon</p>
-    {% else %}
-    <form method="post">
-        {{ form | crispy }}
-        {% csrf_token %}
-        <input type="hidden" name="event" value="{{ post.id }}">
-        <button class="btn btn-secondary" type="submit">Register</button>
-    </form>    
-    {% endif %}
-</div>
+{% if remaining_slot == 0 %}
+<h2>This programme is fully book.</h2>
+{% else %}
+    <div>
+        {% if user.is_authenticated %}
+            <p>Special reg coming soon</p>
+        {% else %}
+        <form method="post">
+            {{ form | crispy }}
+            {% csrf_token %}
+            <input type="hidden" name="event" value="{{ post.id }}">
+            <button class="btn btn-secondary" type="submit">Register</button>
+        </form>    
+        {% endif %}
+    </div>
+{% endif %}
   
 
 {% endblock %}
