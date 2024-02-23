@@ -52,7 +52,7 @@ def post_detail(request, slug):
                 )
                 return redirect(reverse('home'))
     else:
-        form = EventRegistrationForm()
+        form = EventRegistrationForm(user=request.user)
     return render(request, 'events/event_detail.html', {'post': post, 'form': form, 'remaining_slot': remaining_slot})
     
 

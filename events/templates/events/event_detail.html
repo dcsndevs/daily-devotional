@@ -2,6 +2,14 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
+{% block custom_css %}
+<style>
+    /* CSS style to hid the form if User is authenticated */
+    .fields {
+        display: none;
+    }
+</style>
+{% endblock %}
 
 {% block title %}
     {{ post.title }}
@@ -21,7 +29,6 @@
 
 <p>{{ post.location }}</p>
 
-<p>{{ post.location }}</p>
 <p>Remaining Slot: {{ remaining_slot }}</p>
 
 <hr>
@@ -30,8 +37,18 @@
 {% else %}
     <div>
         {% if user.is_authenticated %}
-            <p>Special reg coming soon</p>
+        <form method="post">
+            <div class="fields">
+                {{ form | crispy }}
+                {% csrf_token %}
+            </div>
+            
+                <input type="hidden" name="event" value="{{ post.id }}">
+            <button class="btn btn-secondary" type="submit">Register</button>
+        </form> 
+               
         {% else %}
+        <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
         <form method="post">
             {{ form | crispy }}
             {% csrf_token %}
@@ -44,4 +61,3 @@
   
 
 {% endblock %}
-
