@@ -74,7 +74,10 @@ def current_date_devotional(request):
                                 },
             )
     else:
-        return HttpResponseRedirect('/archive')
+        return HttpResponseRedirect('archive', messages.add_message(
+                request, messages.SUCCESS,
+                'No Post for today yet.'
+            ))
 
 
 def post_like(request, slug):
