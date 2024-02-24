@@ -1,5 +1,6 @@
 import cloudinary.uploader
 from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.db import transaction
 from django.utils import timezone
 from django.views.generic import UpdateView, DeleteView
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
@@ -22,31 +23,33 @@ def display_membership_profile(request):
 def new_membership_profile(request):
     if request.method == "POST":
         creation_form = ProfileForm(request.POST, request.FILES)
-        if request.method == "POST":
-            creation_form = ProfileForm(request.POST, request.FILES)
-            if creation_form.is_valid():
-                membership = creation_form.save(commit=False)
-                membership.owner_id = request.user.id
+        if creation_form.is_valid():
+            membership = creation_form.save(commit=False)
+            membership.owner = request.user  # Set the owner to the current user
 
-                # Check if a picture was uploaded
-                if 'picture' in request.FILES:
-                    image_file = request.FILES['picture']
-                    result = cloudinary.uploader.upload(image_file)
-                    membership.picture = result['secure_url']
-                else:
-                    # Handle the case where no picture was uploaded
-                    membership.picture = 'static/images/default.jpg'  # Provide a default placeholder image URL
+            # Check if a picture was uploaded
+            if 'picture' in request.FILES:
+                image_file = request.FILES['picture']
+                result = cloudinary.uploader.upload(image_file)
+                membership.picture = result['secure_url']
+            else:
+                # Provide a default placeholder image URL
+                membership.picture = 'static/images/default.jpg'
 
+            # Save the membership and related user
+            with transaction.atomic():
                 membership.save()
-                messages.success(request, "You are now a new member!")
-                return redirect('view_membership_profile')
+                # Also update the User record in Auth
+                request.user.first_name = creation_form.cleaned_data['first_name']
+                request.user.last_name = creation_form.cleaned_data['last_name']
+                request.user.email = creation_form.cleaned_data['email']
+                request.user.save()
 
-    else:  # If request method is not POST
-        creation_form = ProfileForm(user=request.user)  # Create an empty form
-
-    profile = Profile.objects.filter(owner=request.user)
-    return render(request, 'membership/create.html', { 'profile': profile, 'creation_form': creation_form})
-
+            messages.success(request, "You are now a new member!")
+            return redirect('view_membership_profile')
+    else:
+        creation_form = ProfileForm(user=request.user)
+    return render(request, 'membership/create.html', {'creation_form': creation_form})
 
 
 class update_membership_profile(UpdateView):
