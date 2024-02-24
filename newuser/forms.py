@@ -6,10 +6,11 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
+    is_active = forms.BooleanField(initial=False, required=False, widget=forms.HiddenInput)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'is_active']
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
