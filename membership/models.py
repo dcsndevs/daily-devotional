@@ -4,7 +4,7 @@ from cloudinary.models import CloudinaryField
 from django.core.validators import RegexValidator
 
 STATUS = ((0, "inactive"), (1, "active"))
-RELATIONSHIP = ((0, "Yes"), (1, "No"), (2, "Not sure"), (3, "Married"))
+RELATIONSHIP = ((0, "Choose not to say"), (1, "Yes"), (2, "No"), (3, "Not sure"), (4, "Married"))
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="owner")
@@ -16,7 +16,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=50, null=True, blank=True)
     where_from = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(
-        max_length=20,
+        max_length=20, blank=True,
         validators=[
             RegexValidator(
                 regex=r'^\+?1?\d{9,15}$',  # Example regular expression for phone number validation
@@ -24,7 +24,7 @@ class Profile(models.Model):
             ),
         ]
     )
-    relationship_status = models.IntegerField(choices=RELATIONSHIP, default=1)
+    relationship_status = models.IntegerField(choices=RELATIONSHIP, default=0)
     favourite_scripture = models.CharField(max_length=500, null=True, blank=True)
     favourite_bible_character = models.CharField(max_length=50, null=True, blank=True)
     education = models.CharField(max_length=100, null=True, blank=True)
