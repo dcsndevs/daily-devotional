@@ -6,6 +6,8 @@ from django.views.generic import UpdateView, DeleteView
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -74,3 +76,11 @@ class delete_membership_profile(DeleteView):
  
 def DeleteSuccessView(request):
     return render(request, 'membership/delete_membership_profile_success.html')
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('view_membership_profile')
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Your Password has been successfully updated!')
+        return super().form_valid(form)

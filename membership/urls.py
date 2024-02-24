@@ -1,5 +1,7 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
+
 
 
 urlpatterns = [
@@ -8,4 +10,5 @@ urlpatterns = [
     path('delete/success/', views.DeleteSuccessView, name='membership_delete_success'),
     path('delete/<int:pk>/', views.delete_membership_profile.as_view(), name='delete_membership_profile'),
     path('edit/<int:pk>/', views.update_membership_profile.as_view(), name='update_membership_profile'),
+    path('change-password/', views.PasswordsChangeView.as_view(template_name='membership/password_change.html'), name='password_change'),
 ]
