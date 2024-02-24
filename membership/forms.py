@@ -5,7 +5,9 @@ from django import forms
 class MembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
-        fields = ['full_name', 'email', 'picture', 'bio', 'location', 'phone',]
+        fields = ['first_name', 'last_name', 'email', 'picture', 'bio', 'location',
+                  'where_from', 'phone', 'relationship_status', 'favourite_scripture', 
+                  'favourite_bible_character', 'education', 'handle']
         
     def __init__(self, *args, **kwargs):
         self.user_id = kwargs.pop('user_id', None)
@@ -19,12 +21,12 @@ class MembershipForm(forms.ModelForm):
             instance.save()
         return instance
     
-    widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'picture': forms.FileInput(attrs={'class': 'form-control-file'}),
-            'bio': forms.TextInput(attrs={'class': 'form-control'}),
-            'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),
-        }
+    # widgets = {
+    #         'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+    #         'email': forms.EmailInput(attrs={'class': 'form-control'}),
+    #         'picture': forms.FileInput(attrs={'class': 'form-control-file'}),
+    #         'bio': forms.TextInput(attrs={'class': 'form-control'}),
+    #         'location': forms.TextInput(attrs={'class': 'form-control'}),
+    #         'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),
+    #     }
     
