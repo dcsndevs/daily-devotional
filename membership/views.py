@@ -8,22 +8,22 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse_lazy
-from .models import Membership
-from .forms import MembershipForm
+from .models import Profile
+from .forms import ProfileForm
 from cloudinary.uploader import upload
 
 @login_required
 def display_membership_profile(request):
-    profile = Membership.objects.filter(owner=request.user).first()
+    profile = Profile.objects.filter(owner=request.user).first()
     return render(request, 'membership/index.html', { 'profile': profile,})
     
     
 @login_required
 def new_membership_profile(request):
     if request.method == "POST":
-        creation_form = MembershipForm(request.POST, request.FILES)
+        creation_form = ProfileForm(request.POST, request.FILES)
         if request.method == "POST":
-            creation_form = MembershipForm(request.POST, request.FILES)
+            creation_form = ProfileForm(request.POST, request.FILES)
             if creation_form.is_valid():
                 membership = creation_form.save(commit=False)
                 membership.owner_id = request.user.id
@@ -42,16 +42,16 @@ def new_membership_profile(request):
                 return redirect('view_membership_profile')
 
     else:  # If request method is not POST
-        creation_form = MembershipForm()  # Create an empty form
+        creation_form = ProfileForm(user=request.user)  # Create an empty form
 
-    profile = Membership.objects.filter(owner=request.user)
+    profile = Profile.objects.filter(owner=request.user)
     return render(request, 'membership/create.html', { 'profile': profile, 'creation_form': creation_form})
 
 
 
 class update_membership_profile(UpdateView):
-    model = Membership
-    form_class = MembershipForm
+    model = Profile
+    form_class = ProfileForm
     template_name = 'membership/update.html'
     success_url = reverse_lazy('view_membership_profile')
     
@@ -61,7 +61,7 @@ class update_membership_profile(UpdateView):
 
 
 class delete_membership_profile(DeleteView):
-    model = Membership
+    model = Profile
     template_name = 'membership/delete_member.html'
     success_url = reverse_lazy('membership_delete_success')
     

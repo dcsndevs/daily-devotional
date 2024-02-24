@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Membership
+from .models import Profile
 
 
 # Register your models here.
-class MembershipAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'email', 'location', 'joined_date')
-    search_fields = ('full_name', 'email', 'location')
+    search_fields = ('first_name', 'email', 'location')
     list_filter = ('location', 'joined_date')
 
-admin.site.register(Membership, MembershipAdmin)
+admin.site.register(Profile, ProfileAdmin)

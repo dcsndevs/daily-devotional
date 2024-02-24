@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 STATUS = ((0, "inactive"), (1, "active"))
 RELATIONSHIP = ((0, "Yes"), (1, "No"), (2, "Not sure"), (3, "Married"))
 
-class Membership(models.Model):
+class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="owner")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -37,4 +37,4 @@ class Membership(models.Model):
         ordering = ['-joined_date']
         
     def __str__(self):
-        return f"{self.owner} | {self.full_name} Joined {self.joined_date}"
+        return f"{self.owner} | {self.first_name} Joined {self.joined_date}"

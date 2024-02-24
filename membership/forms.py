@@ -1,32 +1,28 @@
-from .models import Membership
+from .models import Profile
 from django import forms
 
 
-class MembershipForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Membership
+        model = Profile
         fields = ['first_name', 'last_name', 'email', 'picture', 'bio', 'location',
                   'where_from', 'phone', 'relationship_status', 'favourite_scripture', 
                   'favourite_bible_character', 'education', 'handle']
         
     def __init__(self, *args, **kwargs):
-        self.user_id = kwargs.pop('user_id', None)
-        super(MembershipForm, self).__init__(*args, **kwargs)
+        self.user_id = kwargs.pop('user_id', None)        
+        self.user = kwargs.pop('user', None)
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        
+        if self.user and self.user.is_authenticated:
+            self.fields['first_name'].initial = self.user.first_name
+            self.fields['last_name'].initial = self.user.last_name
+            self.fields['email'].initial = self.user.email
 
     def save(self, commit=True, user_id=None):
-        instance = super(MembershipForm, self).save(commit=False)
+        instance = super(ProfileForm, self).save(commit=False)
         if user_id:
             instance.owner_id = user_id
         if commit:
             instance.save()
         return instance
-    
-    # widgets = {
-    #         'full_name': forms.TextInput(attrs={'class': 'form-control'}),
-    #         'email': forms.EmailInput(attrs={'class': 'form-control'}),
-    #         'picture': forms.FileInput(attrs={'class': 'form-control-file'}),
-    #         'bio': forms.TextInput(attrs={'class': 'form-control'}),
-    #         'location': forms.TextInput(attrs={'class': 'form-control'}),
-    #         'phone': forms.TextInput(attrs={'class': 'form-control', 'type': 'number', 'pattern': '[0-9]*'}),
-    #     }
-    
