@@ -2,29 +2,61 @@
 
 body::before {
   display: block;
-  height: 55px;
+  height: 0px;
   content: '';
   
 }
 
+.overlap-section {
+  background-image: url('../images/header.png');
+  background-size: cover;
+  height: 57vh;
+  position: relative;
+  margin-top: 0px;
+  z-index: 0;
+}
+
+
+.transparent-navbar {
+  background-color: rgba(0, 0, 0, 0.318); /* Transparent background */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  z-index: 2;
+}
+
+.dark-navbar {
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background color */
+}
+
+.navbg {
+  background:linear-gradient(135deg, #172a74, #21a9af);
+    background-color:#184e8e;
+}
+
+.navbar-nav {
+  float: right !important;
+  text-align: right;
+}
+
+.navbar-toggler {
+  outline: none !important;
+}
+/* for two page color */
 .first-half-color {
     height: 50vh;
     width: 100%;
     background:linear-gradient(135deg, #172a74, #21a9af);
     background-color:#184e8e;
     position: absolute;
-    z-index: -1;
+    z-index: -2;
     top: 0px;
   } 
 
-.second-half-color {
+  .second-half-color {
     height: 125vh;
     width: 100%;
     background-color: #FFFFFF;
     position: absolute;
-    z-index: -2;
+    z-index: -3;
     top: 0px;
     }
 
-/* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px; */
-/* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
