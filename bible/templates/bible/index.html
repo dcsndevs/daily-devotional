@@ -13,23 +13,34 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <div>
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
             <form id="bible-form">
-                <label for="book-select">Select:</label>
-                <select id="book-select">
-                    <option value="" selected>Book</option>
-                </select>
-            
-                <label for="chapter-select">and</label>
-                <select id="chapter-select">
-                    <option value="" selected>Chapter</option>
-                </select>
+                {{ form|crispy }}
                 
-                <button type="submit" class="btn-primary small">Go!</button>
+                <div class="form-group">
+                    <label for="book-select">Select:</label>
+                    <select id="book-select" class="form-control">
+                        <option value="" selected>Book</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="chapter-select"></label>
+                    <select id="chapter-select" class="form-control">
+                        <option value="" selected>Chapter</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-warning btn-sm mt-2" type="submit">Go!</button>
             </form>
+            <hr>
             <h2><div id="scripture-title"></div></h2>
             <p><div id="scripture-content"></div></p>
-        </div>
+            
+        </div>    
+    </div>
+        
     {% else %}
     <p>To access the Bible app, you need to
                 <a href="{% url 'account_login' %}">Login</a> 

@@ -7,13 +7,6 @@ body::before {
   
 }
 
-
-.main-content{
-  margin-top: 60px;
-  position: relative;
-}
-
-
 .overlap-section {
   background-image: url('../images/header.png');
   background-size: cover;
@@ -41,7 +34,7 @@ body::before {
 
 .navbar-nav {
   float: right !important;
-  text-align: right !important;
+  text-align: right;
 }
 
 .navbar-toggler {

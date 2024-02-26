@@ -1,4 +1,3 @@
-console.log("Working")
 $(document).ready(function(){
     $(window).scroll(function() { // On scroll event
       if ($(document).scrollTop() > 50) { // If user scrolls more than 50px

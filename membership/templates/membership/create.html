@@ -13,17 +13,21 @@
     {% if user.is_authenticated and profile.owner == user %}
         You already have a user profile! Click Member Area link above.
     {% else %}
-        <form method="post" enctype="multipart/form-data">
-            {{ creation_form | crispy }}
-            {% csrf_token %}
-            
-            {% if user.is_authenticated %}
-                <button type="submit">Register</button>
-            {% else %}
-                <button type="submit" disabled>Register</button><span><em>Register as a site member before you can create a pofile.</em></span>
-            {% endif %}
-        </form>
-
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <form method="post" enctype="multipart/form-data">
+                {{ creation_form | crispy }}
+                {% csrf_token %}
+                
+                {% if user.is_authenticated %}
+                    <button class="btn btn-warning" type="submit">Register</button>
+                {% else %}
+                    <button type="submit" disabled>Register</button><span><em>Register as a site member before you can create a pofile.</em></span>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+        
     {% endif %}
 {% endblock %}
 

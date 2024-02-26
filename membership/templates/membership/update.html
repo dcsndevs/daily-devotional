@@ -11,17 +11,20 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data">
-            {{ form | crispy }}
-            {% csrf_token %}
-            
-            {% if user.is_authenticated %}
-                <button type="submit">Update</button>
-            {% else %}
-                You do not have a profile!
-            {% endif %}
-        </form>
-        
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <form method="post" enctype="multipart/form-data">
+                {{ form | crispy }}
+                {% csrf_token %}
+                
+                {% if user.is_authenticated %}
+                    <button class="btn btn-warning" type="submit">Update</button>
+                {% else %}
+                    You do not have a profile!
+                {% endif %}
+            </form>
+        </div>
+    </div>
     {% else %}
         You are not logged in or you do not have a profile yet.
     {% endif %}

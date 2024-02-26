@@ -11,13 +11,24 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>Profile Deleted Successfully</h1>
-        <p>Your Member profile has been successfully deleted.</p>
-        <a href="/">Go to Devotional Area</a>
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>Profile Deleted Successfully</h1>
+            <p>Your Member profile has been successfully deleted.</p>
+            <a href="/">Go to back to yhe home page.</a>    
+        </div>
+        
+    </div>
     {% else %}
-    <h1>Profile Deleted Successfully</h1>
-    <p>Your Member profile has been successfully deleted.</p>
-    <a href="{% url 'devotional:index' %}">Go to Devotional Area</a>
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>Profile Deleted Successfully</h1>
+            <p>Your Member profile has been successfully deleted.</p>
+            <a href="{% url 'home' %}">Go to back to yhe home page.</a>
+        
+        </div>
+        
+    </div>
     {% endif %}
 {% endblock %}
 
