@@ -10,16 +10,22 @@ from .models import Tweet, Message, TweetComment
 from .forms import TweetForm, TweetCommentForm, MessageForm
 
 
-class TweetList(generic.ListView):
-    queryset = Tweet.objects.filter(author_id=User.id)
+class AllTweetList(generic.ListView):
+    model = Tweet
+    template_name = "message/tweets.html"
+
+    def get_queryset(self):
+        return Tweet.objects.all()
+
+    
+class MyTweets(generic.ListView):
+    model = Tweet
     template_name = "message/my-tweets.html"
 
-class Tweets(generic.ListView):
-    current_date = timezone.now().date()
-    queryset = Tweet.objects.all()
-    template_name = "message/index.html"
+    def get_queryset(self):
+        return Tweet.objects.filter(author_id=self.request.user.id)
 
-def tweet_detail(request, author):
+def TweetDetail(request, author):
     post = get_object_or_404(Tweet, author=author)
     comments = post.comments.all().order_by("-created_on")
     comment_count = post.comments.filter(approved=True).count()
@@ -117,27 +123,33 @@ def comment_delete(request, author, comment_id):
 
     return HttpResponseRedirect(reverse('tweet_detail', args=[author]))
 
+
 class MessageList(generic.ListView):
-    queryset = Message.objects.filter(author_id=User.id)
-    template_name = "message/index.html"
+    model = Message
+    template_name = "message/inbox.html"
+
+    def get_queryset(self):
+        return Message.objects.filter(author_id=self.request.user.id)
 
 
 def SendMessage(request):
-
+    user_id = request.user.id
     if request.method == "POST":
         message_form = MessageForm(data=request.POST)
         if message_form.is_valid():
             message_form.save()
             messages.add_message(request, messages.SUCCESS, "Message Sent")
 
-    messages = Message.objects.filter(sender=request.user_id)
+    message_received = Message.objects.filter(author_id=user_id)
+    message_sent = Message.objects.filter(sender_id=user_id)
     message_form = MessageForm()
 
     return render(
         request,
-        "about/about.html",
+        "message/send.html",
         {
-            "messages": messages,
+            "message_received": message_received,
+            "message_sent": message_sent,
             "message_form": message_form
         },
     )

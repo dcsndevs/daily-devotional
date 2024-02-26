@@ -15,7 +15,7 @@ class TweetForm(forms.ModelForm):
             instance.save()
         return instance
 
-class CommentForm(forms.ModelForm):
+class TweetCommentForm(forms.ModelForm):
     class Meta:
         model = TweetComment
         fields = ('body',)
@@ -24,7 +24,7 @@ class CommentForm(forms.ModelForm):
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ('sender, message')
+        fields = ('sender', 'message',)
     
     def save(self, commit=True, user_id=None):
         instance = (MessageForm, self).save(commit=False)
@@ -36,7 +36,7 @@ class MessageForm(forms.ModelForm):
 
 class ContactForm(forms.ModelForm):
     class Meta:
-        model = Message
+        model = Contacts
         fields = ('friend',)
         
         def save(self, commit=True, user_id=None):
