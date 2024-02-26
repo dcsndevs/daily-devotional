@@ -2,62 +2,62 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
-{% block custom_css %}
-<style>
-    /* CSS style to hid the form if User is authenticated */
-    .fields {
-        display: none;
-    }
-</style>
-{% endblock %}
+
 
 {% block title %}
     {{ post.title }}
 {% endblock %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
+<div class="container">
+        <h1>{{ post.title }}</h1>
 
-<p>{{ post.description }}</p>
-<p>{{ post.date_of_event }}</p>
+    <p>{{ post.description }}</p>
+    <p>{{ post.date_of_event }}</p>
 
-<p>{{ post.slot }}</p>
+    <p>{{ post.slot }}</p>
 
-<p>{{ post.date_of_event }}</p>
+    <p>{{ post.date_of_event }}</p>
 
-<p>{{ post.registration_expires }}</p>
+    <p>{{ post.registration_expires }}</p>
 
-<p>{{ post.location }}</p>
+    <p>{{ post.location }}</p>
 
-<p>Remaining Slot: {{ remaining_slot }}</p>
+    <p>Remaining Slot: {{ remaining_slot }}</p>
 
-<hr>
-{% if remaining_slot == 0 %}
-<h2>This programme is fully booked.</h2>
-{% else %}
-    <div>
-        {% if user.is_authenticated %}
-        <form method="post">
-            <div class="fields">
+    <hr>
+    {% if remaining_slot == 0 %}
+    <h2 style="min-height: 48vh;">This programme is fully booked.</h2>
+    {% else %}
+        <div>
+            {% if user.is_authenticated %}
+            <div class="row" style="min-height: 48vh;">
+                <div class="col-md-8 mt-3 offset-md-2">
+                    <form method="post">
+                        <div style="display: none;">
+                            {{ form | crispy }}
+                            {% csrf_token %}
+                        </div>
+                        
+                            <input type="hidden" name="event" value="{{ post.id }}">
+                        <button class="btn btn-warning" type="submit">Register</button>
+                    </form> 
+                </div>
+                
+            </div>
+                
+            {% else %}
+            <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
+            <form method="post">
                 {{ form | crispy }}
                 {% csrf_token %}
-            </div>
-            
                 <input type="hidden" name="event" value="{{ post.id }}">
-            <button class="btn btn-secondary" type="submit">Register</button>
-        </form> 
-               
-        {% else %}
-        <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
-        <form method="post">
-            {{ form | crispy }}
-            {% csrf_token %}
-            <input type="hidden" name="event" value="{{ post.id }}">
-            <button class="btn btn-secondary" type="submit">Register</button>
-        </form>    
-        {% endif %}
-    </div>
-{% endif %}
-  
+                <button class="btn btn-secondary" type="submit">Register</button>
+            </form>    
+            {% endif %}
+        </div>
+    {% endif %}
+    
+</div>
 
 {% endblock %}

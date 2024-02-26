@@ -1,5 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
 
+.bottom-footer {
+  min-height: 85vh;
+}
+
+
+
 body::before {
   display: block;
   height: 0px;
@@ -9,7 +15,7 @@ body::before {
 
 
 .main-content{
-  margin-top: 60px;
+  margin-top: 5px;
   position: relative;
 }
 
