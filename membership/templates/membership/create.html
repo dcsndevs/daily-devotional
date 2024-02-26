@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+   <div class="container">
     {% if user.is_authenticated and profile.owner == user %}
         You already have a user profile! Click Member Area link above.
     {% else %}
@@ -20,15 +21,16 @@
                 {% csrf_token %}
                 
                 {% if user.is_authenticated %}
-                    <button class="btn btn-warning" type="submit">Register</button>
+                    <button class="btn btn-warning" type="submit">Submit</button>
                 {% else %}
                     <button type="submit" disabled>Register</button><span><em>Register as a site member before you can create a pofile.</em></span>
                 {% endif %}
             </form>
         </div>
     </div>
-        
-    {% endif %}
+    
+{% endif %}
+
 {% endblock %}
 
 {% block extras %}

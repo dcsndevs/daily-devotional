@@ -11,8 +11,10 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <div class="row container">
+    <div class="row container bottom-footer">
         <div class="col-md-8 mt-3 offset-md-2">
+            <h3>Delete your profile</h3>
+            <p>You would still be able to login but would not have a profile again.</p>
             <form method="post">
             
                 {% csrf_token %}
