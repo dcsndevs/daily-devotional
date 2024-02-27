@@ -72,7 +72,7 @@
                     <form method="post">
                         {% csrf_token %}
                         {{ comment_form | crispy }}
-                        <button type="submit">Comment</button>
+                        <button type="submit" class="btn btn-warning btn-sm">Comment</button>
                     </form>
                 {% endif %}
             </div>
@@ -86,11 +86,13 @@
                         {% for comment in comments %}
                             <div>
                                 <p class="font-weight-bold">
-                                    {{ comment.author }}
-                                    <span class="font-weight-normal">({{ comment.created_on }}) wrote:</span>
+                                    {{ comment.author }}, ({{ comment.created_on }}) wrote:
                                 </p>
                                 <div id="comment{{ comment.id }}">
                                     {{ comment.body | linebreaks }}
+                                </div>
+                                <div>
+
                                     {% if user.is_authenticated and comment.author == user %}
                                         <div class="mb-3">
                                           {% if not comment.likes2.all %}
@@ -100,8 +102,8 @@
                                           {% endif %}
                                           {{ comment.likes2_count }}
                                         </div>
-                                        <button class="btn btn-edit btn-warning btn-sm" comment_id="{{ comment.id }}">Edit</button>
-                                        <button class="btn btn-delete btn-danger btn-sm" comment_id="{{ comment.id }}">Delete</button>
+                                        <button class="btn btn-edit btn-warning btn-sm" id="submitButton" data-comment_id="{{ comment.id }}">Edit</button>
+                                        <button class="btn btn-delete btn-danger btn-sm" data-comment_id="{{ comment.id }}">Delete</button>
                                     {% endif %}
 
                                     {% if user.is_authenticated %}
@@ -140,5 +142,5 @@
 {% endblock %}
 
 {% block js_script %}
-<script src="{% static 'js/comments.js' %}"></script>
+
 {% endblock %}
