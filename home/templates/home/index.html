@@ -135,9 +135,28 @@
             </div>
           </div>
         </section>
+
+        
         {% endblock %}
+
+        <!-- Contact Form -->
+    <section>
+      <div class="row container bottom-footer">
+        <div class="col-md-8 mt-3 offset-md-2">
+          <form method="post">
+            {{ home_contact_form | crispy }}
+            {% csrf_token %}
+            <button class="btn btn-warning"
+              type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
     </main>
-    <div class="footer fixed-bottom footer-dark container">
+    
+      
+    
+    <div class="footer footer-dark container">
 
         <footer class="footer text-dark text-center position-relative">
             <div class="container">

@@ -7,6 +7,10 @@ body::before {
   
 }
 
+.bottom-footer {
+  min-height: 85vh;
+}
+
 .overlap-section {
   background-image: url('../images/header.png');
   background-size: cover;
