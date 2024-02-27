@@ -13,6 +13,7 @@ class PostList(generic.ListView):
     current_date = timezone.now().date()
     queryset = Post.objects.filter(active_date__lte=current_date, status=1)
     template_name = "devotional/archive.html"
+    paginate_by = 12  
 
 
 def post_detail(request, slug):

@@ -47,12 +47,15 @@
             </div>
                 
             {% else %}
-            <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
+            <div class="row">
+                <h3>Register for this event</h3>
+                <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
+            </div>
             <form method="post">
                 {{ form | crispy }}
                 {% csrf_token %}
                 <input type="hidden" name="event" value="{{ post.id }}">
-                <button class="btn btn-secondary" type="submit">Register</button>
+                <button class="btn btn-warning" type="submit">Register</button>
             </form>    
             {% endif %}
         </div>

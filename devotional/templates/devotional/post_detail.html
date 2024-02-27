@@ -8,157 +8,133 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <p>Author: {{ post.author }}</p>
-  <p>Active Date: {{ post.active_date }}</p>
-  <p>Memory Verse: {{ post.memory_verse }}</p>
-  <p>{{ post.content }}</p>
-  <p>Bible Reading Plan: </p>
-  <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
-  <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
-  
-  <div>
-    {% if user.is_authenticated %}
-          <form action="{% url 'post_like' post.slug %}" method="POST">
-              {% csrf_token %}
-              <button type="submit" class="post-like">
-                  {% if user in post.likes.all %}
-                      Unlike
-                  {% else %}
-                      Like
-                  {% endif %}
-              </button>
-          </form>
-    {% else %}
-      <span>Login to like this post</span>
-    {% endif %}
-    <span>{{ post.number_of_likes }}</span>
-  </div>
-
-  <div class="col-1">
-        {% with comments.count as total_comments %}
-        <strong class="text-secondary"><i class="far fa-comments"></i>
-            {{ total_comments }}
-        </strong>
-        
-        {% endwith %}
-    </div>
-   
-    <div>
-      <h2>Write a comment</h2>
-      {% if user.is_authenticated %}
-          <p>Commenting as: {{ user.username }}</p>
-      {% else %}
-          <p>To make and like comments, you need to 
-              <a href="{% url 'account_signup' %}">Login</a> 
-              or 
-              <a href="{% url 'account_signup' %}">Register</a></p>
-      {% endif %}
-      {% if user.is_authenticated %}
-          <form method="post">
-              {{ comment_form | crispy }}
-              {% csrf_token %}
-              
-              
-          <button type="submit">Comment</button>
-          </form>
-      {% else %}
-      {% endif %}
-          
-  </div>
-
-  <!-- Displaying count of comments -->
-  <div class="row">
-    <div class="col-12">
-      <strong class="text-secondary">
-        <i class="far fa-comments"></i> {{ comment_count }}
-      </strong>
-    </div>
-    <div class="col-12">
-      <hr>
-    </div>
-  </div>
-  <!-- Displaying Comments -->
-  <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 ">
-      <h3>Comments:</h3>
-      <div class="card-body">
-        <!-- We want a for loop inside the empty control tags
-          to iterate through each comment in comments -->
-        {% for comment in comments %}
-          <div class="p-2 comments
-            {% if not comment.approved and comment.author == user %}
-            faded{% elif not comment.approved %} d-none{% endif %}">
-            <p class="font-weight-bold">
-              {{ comment.author }}
-              <span class="font-weight-normal">
-                {{ comment.created_on }}
-              </span> wrote:
-            </p>
-
-            <div id="comment{{ comment.id }}">
-              {{ comment.body | linebreaks }}
-              {% if user.is_authenticated and comment.author == user %}
-              <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
-              <button class="btn btn-delete"comment_id="{{ comment.id }}">Delete</button>
-              {% endif %}
-              <p>Likes: {{ comment.likes2_count }}</p>
-              {% if user.is_authenticated %}
-                    
-                            {% if request.user in comment.likes2.all %}
-                            <form action="{% url 'like_comment' comment.id %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="like-comment">
-                                Unlike
-                            </button>
-                            {% elif request.user == comment.author %}
-                                <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
-                                <button class="btn btn-delete"comment_id="{{ comment.id }}">Delete</button>
-                                You're the author(Icon here)
-                            {% else %}
-                            <form action="{% url 'like_comment' comment.id %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="like-comment">
-                                like
-                            </button>
-                            {% endif %}
-                        
-                    </form>
+<div class="container p-3">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>{{ post.title }}</h1>
+            <p>Active Date: {{ post.active_date }}</p>
+            <p>Memory Verse: {{ post.memory_verse }}</p>
+            <p>{{ post.content }}</p>
+            <p>Bible Reading Plan:</p>
+            <ul>
+                <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
+                <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
+            </ul>
+            
+            <div class="row">
+                {% if user.is_authenticated %}
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#comment" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5"><i class="bi bi-chat"></i></a>
+                        <span>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</span>
+                    </div>
+                    <div>
+                      <p style="color: white;">|           |</p>
+                    </div>
+                    <div>
+                        {% if user in post.likes.all %}
+                        <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                        {% else %}
+                        <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                        {% endif %}
+                        <span>{% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</span>
+                    </div>
+                </div>
                 {% else %}
-                    <span><i class="far fa-heart"></i> or remove</span>
+                <div class="d-flex">
+                  <div class="mr-3">
+                      <a href="#comment" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat"></i></a>
+                      <span>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</span>
+                  </div>
+                  <div>
+                    <p style="color: white;">|           |</p>
+                  </div>
+                  <div>
+                    {% if not post.likes.all %}
+                        <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up"></i></a>
+                    {% else %}
+                        <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                    {% endif %}
+                      <span>{% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</span>
+                  </div>
+                </div>
                 {% endif %}
+            </div>
+            
+            <div>
+                <h5>Write a comment</h5>
+                {% if user.is_authenticated %}
+                    <p>Commenting as: {{ user.username }}</p>
+                {% else %}
+                    <p>To make and like comments, you need to <a href="{% url 'account_login' %}">Login</a> or <a href="{% url 'registration' %}">Register</a></p>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form | crispy }}
+                        <button type="submit">Comment</button>
+                    </form>
+                {% endif %}
+            </div>
+            
+            <!-- Displaying Comments -->
+            <div class="row">
+                <div class="col-12 card mb-4 mt-3">
+                    <h5>Comments:</h5>
+                    <div class="card-body">
+                        <!-- Loop through each comment -->
+                        {% for comment in comments %}
+                            <div>
+                                <p class="font-weight-bold">
+                                    {{ comment.author }}
+                                    <span class="font-weight-normal">({{ comment.created_on }}) wrote:</span>
+                                </p>
+                                <div id="comment{{ comment.id }}">
+                                    {{ comment.body | linebreaks }}
+                                    {% if user.is_authenticated and comment.author == user %}
+                                        <div class="mb-3">
+                                          {% if not comment.likes2.all %}
+                                              <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up"></i></a>
+                                          {% else %}
+                                              <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                                          {% endif %}
+                                          {{ comment.likes2_count }}
+                                        </div>
+                                        <button class="btn btn-edit btn-warning btn-sm" comment_id="{{ comment.id }}">Edit</button>
+                                        <button class="btn btn-delete btn-danger btn-sm" comment_id="{{ comment.id }}">Delete</button>
+                                    {% endif %}
 
-          </div>
-          
-        <!-- Our for loop ends here -->
-        {% endfor %}
-      </div>
+                                    {% if user.is_authenticated %}
+                                        
+                                        {% if request.user == comment.author %}
+
+                                        {% else %}
+                                        
+                                            {% if user in comment.likes2.all %}
+                                                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                                            {% else %}
+                                                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up"></i></a>
+                                            {% endif %}
+                                            {{ comment.likes2_count }}
+                                        {% endif %}
+                                        
+                                    {% else %}
+                                        {% if not comment.likes2.all %}
+                                            <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up"></i></a>
+                                        {% else %}
+                                            <a href="" class="like-comment btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                                        {% endif %}
+                                        {{ comment.likes2_count }}
+                                    {% endif %}
+                                </div>
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>  
-<!-- Delete confirmation modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1"
-  aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"
-          id="deleteModalLabel">Delete comment?</h5>
-        <button type="button" class="btn-close"
-          data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete your comment?
-        This action cannot be undone.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"
-          data-bs-dismiss="modal">Close</button>
-        <a id="deleteConfirm" href="#" class="btn
-          btn-danger">Delete</a>
-      </div>
-    </div>
-  </div>
 </div>
 
 {% endblock %}
