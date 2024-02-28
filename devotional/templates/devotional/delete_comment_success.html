@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Delete Comment
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container bottom-footer">
+        {% if user.is_authenticated %}
+        <div class="row container">
+            <div class="col-md-8 mt-3 offset-md-2">
+                <h1>Comment Deleted Successfully</h1>
+                <p>Your comment has been successfully deleted.</p>
+                <a href="/">Go to back to yhe home page.</a>    
+            </div>
+            
+        </div>
+        {% else %}
+        <div class="row container">
+            <div class="col-md-8 mt-3 offset-md-2">
+                <h1>Comment Deleted Successfully</h1>
+                <p>Your comment has been successfully deleted.</p>
+                <a href="{% url 'home' %}">Go to back to yhe home page.</a>
+            
+            </div>
+            
+        </div>
+        {% endif %}
+    </div>
+    
+{% endblock %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}

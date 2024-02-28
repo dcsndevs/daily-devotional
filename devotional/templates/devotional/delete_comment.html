@@ -5,7 +5,7 @@
 
 {% block title %}
 {% if user.is_authenticated %}
-    Delete Member Profile
+    Delete Comment
 {% endif %}
 {% endblock %}
 
@@ -13,8 +13,8 @@
     {% if user.is_authenticated %}
     <div class="row container bottom-footer">
         <div class="col-md-8 mt-3 offset-md-2">
-            <h3>Delete your profile</h3>
-            <p>You would still be able to login but would not have a profile again.</p>
+            <h3>Delete your comment</h3>
+            <p>Other comments would still be visible</p>
             <form method="post">
             
                 {% csrf_token %}
@@ -22,17 +22,17 @@
                 {% if user.is_authenticated %}
                 <p>This can not be Undone!</p>
                 <p>Are you sure you want to delete</p>
-                    <a href="/profile" class="btn btn-dark">No</a> 
-                    <button type="submit" class="btn btn-warning">Yes</button>
+                    <a href="javascript:history.back()" class="btn btn-dark">No</a> 
+                    <button type="submit" class="btn btn-danger">Yes</button>
                 {% else %}
-                    You do not have a profile!
+                    No comment found
                 {% endif %}
             </form>
         </div>
     </div>
         
     {% else %}
-        You are not logged in or you do not have a profile yet.
+        You are not logged in or you do not have a comment.
     {% endif %}
 {% endblock %}
 

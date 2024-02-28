@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if user.is_authenticated %}
+    Update Comment
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container bottom-footer">
+    {% if user.is_authenticated %}
+    <div class="row container">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h3>Update your comment</h3>
+            <form method="post" enctype="multipart/form-data">
+                {{ form | crispy }}
+                {% csrf_token %}
+                
+                {% if user.is_authenticated %}
+                    <button class="btn btn-warning" type="submit">Update</button>
+                {% else %}
+                    Comment not found!
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    {% else %}
+        You are not logged in or you do not have a comment yet.
+    {% endif %}
+
+</div>
+{% endblock %}

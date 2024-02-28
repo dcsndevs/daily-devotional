@@ -1,10 +1,12 @@
 import requests
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils import timezone
-from django.views import generic, View
-from django.http import HttpResponseRedirect, HttpRequest
+from django.views import generic
+from django.views.generic import UpdateView, DeleteView
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.contrib import messages
+from django.urls import reverse_lazy
 from .models import Post, Comment
 from .forms import CommentForm
 
@@ -109,44 +111,43 @@ def like_comment(request, comment_id):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+class UpdateComment(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'devotional/update.html'
 
-def comment_edit(request, slug, comment_id):
-    """
-    view to edit comments
-    """
-    if request.method == "POST":
-        queryset = Post.objects.filter(status=1)
-        post = get_object_or_404(queryset, slug=slug)
-        comment = get_object_or_404(Comment, pk=comment_id)
-        comment_form = CommentForm(data=request.POST, instance=comment)
+    def form_valid(self, form):
+        messages.success(self.request, 'Your comment has been successfully updated!')
+        return super().form_valid(form)
 
-        if comment_form.is_valid() and comment.author == request.user:
-            comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.approved = False
-            comment.save()
-            messages.add_message(request, messages.SUCCESS, 'Comment Updated successfully!')
-        else:
-            messages.add_message(request, messages.ERROR, 'Error: Could not update comment!')
+    def get_success_url(self):
+        # Get the post slug from the comment instance
+        comment = self.object
+        post_slug = comment.post.slug  # Assuming the post has a slug field
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+        # Construct the URL for the post detail page using the post slug
+        return reverse_lazy('post_detail', kwargs={'slug': post_slug})
 
 
-def comment_delete(request, slug, comment_id):
-    """
-    view to delete comment
-    """
-    queryset = Post.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
-    comment = get_object_or_404(Comment, pk=comment_id)
+class DeleteComment(DeleteView):
+    model = Comment
+    template_name = 'devotional/delete_comment.html'
+    
+    def get_success_url(self):
+        # Get the post slug from the comment instance
+        comment = self.object
+        post_slug = comment.post.slug  # Assuming the post has a slug field
 
-    if comment.author == request.user:
-        comment.delete()
-        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
-    else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+        # Construct the URL for the post detail page using the post slug
+        return reverse_lazy('post_detail', kwargs={'slug': post_slug})
+        
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        return response
+    
+def DeleteSuccessView(request):
+    return render(request, 'devotional/delete_comment_success.html')
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 def view_verse(request, scripture):
     # Make request to Bible API with KJV translation and verse numbers
