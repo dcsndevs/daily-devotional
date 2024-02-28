@@ -46,20 +46,20 @@ body::before {
 }
 /* for two page color */
 .first-half-color {
-    height: 50vh;
+    height: 50%;
     width: 100%;
     background:linear-gradient(135deg, #172a74, #21a9af);
     background-color:#184e8e;
-    position: absolute;
+    position: fixed;
     z-index: -2;
     top: 0px;
   } 
 
   .second-half-color {
-    height: 125vh;
+    height: 50%;
     width: 100%;
     background-color: #FFFFFF;
-    position: absolute;
+    position: fixed;
     z-index: -3;
     top: 0px;
     }

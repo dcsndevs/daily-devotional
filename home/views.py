@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib import messages
 from .forms import HomeContactForm
+from events.models import Programmes
 
 def home(request):
-
+    programmes = Programmes.objects.filter(status=1).order_by('?')[:3]
     if request.method == 'POST':
         home_contact_form = HomeContactForm(request.POST)
         if home_contact_form.is_valid():
@@ -14,4 +15,8 @@ def home(request):
  
     else:
         home_contact_form = HomeContactForm()
-    return render(request, 'home/index.html', {'home_contact_form': home_contact_form})
+    return render(request, 'home/index.html', {
+        'home_contact_form': home_contact_form,
+        'programmes': programmes,
+        
+        })
