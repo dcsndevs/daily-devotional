@@ -12,7 +12,7 @@ body::before {
 }
 
 .overlap-section {
-  background-image: url('../images/header.png');
+  background-image: url('https://res.cloudinary.com/djhi60enx/image/upload/v1709146486/header_jdjmpo.png');
   background-size: cover;
   height: 57vh;
   position: relative;
