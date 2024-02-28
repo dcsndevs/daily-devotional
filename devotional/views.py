@@ -21,6 +21,8 @@ class PostList(generic.ListView):
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, status=1)
     comments = post.comments.all().order_by("-created_on")
+    #
+    author = post.comments.filter(author=request.user).order_by("-created_on")[:1]
     comment_count = post.comments.filter(approved=True).count()
     
     if request.method == "POST":
@@ -45,6 +47,7 @@ def post_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
+            "author": author,
         },
     )
 
@@ -139,16 +142,13 @@ class DeleteComment(DeleteView):
         post_slug = comment.post.slug  # Assuming the post has a slug field
 
         # Construct the URL for the post detail page using the post slug
+        messages.success(self.request, 'Your comment has been successfully deleted!')
         return reverse_lazy('post_detail', kwargs={'slug': post_slug})
         
     def delete(self, request, *args, **kwargs):
         response = super().delete(request, *args, **kwargs)
         return response
     
-def DeleteSuccessView(request):
-    return render(request, 'devotional/delete_comment_success.html')
-
-
 def view_verse(request, scripture):
     # Make request to Bible API with KJV translation and verse numbers
     api_url = f'https://bible-api.com/{scripture}?translation=kjv&verse_numbers=true'
