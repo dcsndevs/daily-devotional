@@ -21,17 +21,21 @@
         {% if user.is_authenticated %}
         <p>
             {% if comments %}
-            <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                {% for comment in comments %}
+                    {% if user == comment.author %}
+                <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                    {% endif %}
+                {% endfor %}
             {% else %}
             <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
             {% endif %}
-            <span>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</span>
+            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
             {% if user in post.likes.all %}
             <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
             {% else %}
             <a href="{% url 'post_like' post.slug %}" class="btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% endif %}
-            <span> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</span>
+            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
         </p>
         {% else %}
         <p>
@@ -40,13 +44,13 @@
             {% else %}
             <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
             {% endif %}
-            <span>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</span>
+            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
             {% if user in post.likes.all %}
             <a href="#" class="btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
             {% else %}
             <a href="#" class="btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% endif %}
-            <span> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</span>
+            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
         </p>
         {% endif %}
 
@@ -73,7 +77,7 @@
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% else %}
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} {{ comment.likes2_count }}
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
         </p>
         <p>
             <a href="{% url 'update_comment' pk=comment.id %}" type="button" class="btn btn-edit btn-warning btn-sm">Edit</a>
@@ -88,7 +92,7 @@
             <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% else %}
             <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} {{ comment.likes2_count }}
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
         </p>
         {% else %}
         <p class="condition3">
@@ -96,7 +100,7 @@
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% else %}
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} {{ comment.likes2_count }}
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
         </p>
         {% endif %}
         {% endfor %}

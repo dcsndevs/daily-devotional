@@ -21,7 +21,6 @@ class PostList(generic.ListView):
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, status=1)
     comments = post.comments.all().order_by("-created_on")
-    author = post.comments.filter(author=request.user).order_by("-created_on")[:1]
     comment_count = post.comments.filter(approved=True).count()
     
     if request.method == "POST":
@@ -46,7 +45,6 @@ def post_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
-            "author": author,
         },
     )
 
