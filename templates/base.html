@@ -22,8 +22,8 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
-        <div class="first-half-color fix-top"></div>
-        <div class="second-half-color fix-bottom"></div>
+        <!-- <div class="first-half-color fix-top"></div>
+        <div class="second-half-color fix-bottom"></div> -->
 
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-dark py-3 bg-dark base-nav">
@@ -81,7 +81,7 @@
                             <ul class="navbar-nav">
                                 {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_membership_profile' %}" aria-current="member area"><i class="bi-person"></i> Member Area</a>
+                                <a class="nav-link" href="{% url 'community' %}" aria-current="member area"><i class="bi-person"></i> Member Area</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'account_logout' %}"><i class="bi-key"></i> Logout</a>

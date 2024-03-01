@@ -2,6 +2,7 @@ import cloudinary.uploader
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.db import transaction
 from django.utils import timezone
+from django.views import generic
 from django.views.generic import UpdateView, DeleteView
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.utils import timezone
@@ -14,6 +15,11 @@ from django.urls import reverse_lazy
 from .models import Profile
 from .forms import ProfileForm
 from cloudinary.uploader import upload
+
+class PostList(generic.ListView):
+    queryset = Profile.objects.filter(status=1)
+    template_name = "membership/community.html"
+    paginate_by = 12    
 
 @login_required
 def display_membership_profile(request):
@@ -52,6 +58,18 @@ def new_membership_profile(request):
     else:
         creation_form = ProfileForm(user=request.user)
     return render(request, 'membership/create.html', {'creation_form': creation_form})
+
+def post_detail(request, owner):
+    profile = get_object_or_404(Profile, owner=owner, status=1)
+
+    return render(
+        request,
+        "membership/slected-member-profile-detail.html",
+        {
+            "profile": profile,
+        },
+    )
+
 
 
 class update_membership_profile(UpdateView):
