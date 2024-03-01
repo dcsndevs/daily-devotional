@@ -12,30 +12,90 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated and profile.owner == user %}
-        <div class="image-container">
-            <img src="{% static 'images/default.jpg' %}" class="img-fluid img-thumbnail" alt="placeholder image">
-        </div>
-        <ul>
-            <h2>{{ profile.full_name }}</h2>
-            <p>{{ profile.email }}</p>
-            <p>{{ profile.owner }}</p>
-            <p><img src="{{ profile.picture.url }}" class="img-fluid img-thumbnail" alt="..."></p>
-            <p>{{ profile.bio }}</p>
-            <p>{{ profile.location }}</p>
-            <p>{{ profile.phone }}</p>
-            <p>{{ profile.joined_date }}</p>
-        </ul>
-        <a href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a>
-        <a href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a>
-        <a href="{% url 'password_change' %}">Change Password</a>
 
-        {% elif user.is_authenticated %}
-        <p>To access the member area, you need to create a profile.</p>
-        <a href="{% url 'new_membership_profile' %}">Create one now!</a>
+<div class="container">
+    {% if user.is_authenticated and profile.owner == user %}
+    <div class="col-md-10 m-3">
+        <div class="card m-3">
+            <div class="card-body">
+                <div class="image-container text-center">
+                    <img src="{{ profile.picture.url }}" class="img-fluid img-thumbnail rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-4 mb-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-person-circle"></i> Name</h5>
+                    <p class="card-text">{{ profile.first_name }} {{ profile.last_name }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-primary text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-envelope"></i> Email</h5>
+                    <p class="card-text">{{ profile.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-secondary text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-book"></i> Bio</h5>
+                    <p class="card-text">{{ profile.bio }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-success text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-geo-alt"></i> Current Location</h5>
+                    <p class="card-text">{{ profile.location }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-danger text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-phone"></i> Phone</h5>
+                    <p class="card-text">{{ profile.phone }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-calendar"></i> Joined Date</h5>
+                    <p class="card-text">{{ profile.joined_date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a class="text-info" href="{% url 'update_membership_profile' pk=profile.id %}">Update Member Profile</a></li>
+                        <li class="list-group-item"><a class="text-info" href="{% url 'delete_membership_profile' pk=profile.id %}">Delete Member Profile</a></li>
+                        <li class="list-group-item"><a class="text-info" href="{% url 'password_change' %}">Change Password</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% elif user.is_authenticated %}
+    <p>To access the member area, you need to create a profile.</p>
+    <a href="{% url 'new_membership_profile' %}">Create one now!</a>
     {% else %}
-        <p>You need to sign up using the register link in the menu above.</p>
+    <p>You need to sign up using the register link in the menu above.</p>
     {% endif %}
+</div>
+
 
 {% endblock %}
 

@@ -64,3 +64,8 @@ body::before {
     top: 0px;
     }
 
+.card, .image-container {
+  border: none !important; /* Remove border */
+  border-radius: 15px !important; /* Remove border radius */
+  
+}
