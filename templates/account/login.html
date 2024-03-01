@@ -8,20 +8,20 @@
 
 {% block content %}
 
-<div class="container bottom-footer">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h3>{% trans "Sign In" %}</h3>
+<div class="container col-lg-6 mt-3 bottom-footer">
+    <div>
+        <div class="text-left mb-4">
+            <h3 class="text-info">{% trans "Sign In" %}</h3>
 
             <p>Welcome back to the LH Daily Devotionals. To leave a comment or like a post, please log in. If
                 you
-                have not created an account yet, then <a class="link" href="{% url 'registration' %}">sign up</a>
+                have not created an account yet, then <a class="link text-info" href="{% url 'registration' %}">sign up</a>
                 first.</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
+    <div>
+        <div>
+            <form class="login form-signin" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 {{ form | crispy }}
                 {% if redirect_field_value %}

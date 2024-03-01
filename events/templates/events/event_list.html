@@ -9,41 +9,41 @@
 
 {% block content %}
 <div class="container bottom-footer p-3">
-    <h2>List of all Events</h2>
+    <div class="badge badge-primary text-wrap bg-info font-weight-normal">
+        <a>List of all Events</a>
+    </div>
+    
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            
-            <div class="container">
-                <ul>
-                    {% for post in object_list %}
-                        <li>
-                            <h2><a href="{% url 'programme_detail' post.slug %}">{{ post.title }}</a></h2>
-                            <p>Date: {{ post.date_of_event }}</p>
-                        </li>
-                        {% if forloop.counter|divisibleby:2 %}
-                        <div class="row">
-                        {% endif %}
-            
-            
-            
-                    {% empty %}
-                        <li>No programme events available at this time.</li>
-                    {% endfor %}
-                </ul>
-            
-                {% if is_paginated %}
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        {% if page_obj.has_previous %}
-                        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-                        {% endif %}
-                        {% if page_obj.has_next %}
-                        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% endif %}
+        <div>
+            {% for post in object_list %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'programme_detail' post.slug %}" class="text-dark">{{ post.title }}</a></h5>
+                    <p class="card-text">Date: {{ post.date_of_event }}</p>
+                </div>
             </div>
+            {% if forloop.counter|divisibleby:2 %}
+            <div class="w-100"></div>
+            {% endif %}
+            {% empty %}
+            <div class="alert alert-warning" role="alert">
+                No programme events available at this time.
+            </div>
+            {% endfor %}
+            {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link text-info">&laquo; PREV </a></li>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link text-info"> NEXT &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
         </div>
     </div>
+</div>
+
 {% endblock %}

@@ -5,45 +5,42 @@
 {% endblock %}
 
 {% block content %}
-<div class="container p-3">
+<div class="container bottom-footer p-3">
+    <div class="badge badge-primary text-wrap bg-info font-weight-normal">
+        <a>Archive</a>
+    </div>
+    
     <div class="row">
-        <h1>Archive</h1>
-        <em><a href="{% url 'daily' %}">Today's Devotional</a></em>
-        <div class="col-md-8 mt-3 offset-md-2">
-            
-            <ul>
-                {% for post in object_list %}
-                    <li>
-                        <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
-                        <p>Date: {{ post.active_date }}</p>
-                    </li>
-                    {% if forloop.counter|divisibleby:2 %}
-                    <div class="row">
-                    {% endif %}
-       
-        
-                {% empty %}
-                    <li>Devotional archive is unavailable at this time. 
+        <div>
+            {% for post in object_list %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h5>
+                    <p>Date: {{ post.active_date }}</p>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+            <div class="w-100"></div>
+            {% endif %}
+            {% empty %}
+            <div class="alert alert-warning" role="alert">
+                Devotional archive is unavailable at this time. 
                         Thank you for your understanding
-                    </li>
-                {% endfor %}
-            </ul>
-        
+            </div>
+            {% endfor %}
             {% if is_paginated %}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                    <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link text-info">&laquo; PREV </a></li>
                     {% endif %}
                     {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link text-info"> NEXT &raquo;</a></li>
                     {% endif %}
                 </ul>
             </nav>
             {% endif %}
-        
         </div>
     </div>
-</div>
-{% endblock %}
+</div>{% endblock %}
 

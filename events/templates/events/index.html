@@ -3,75 +3,71 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<div class="container bottom-footer p-3">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <div class="container">
 
-                <div class="container">
-                {% block title %}
-                {{ post.title }}
-            {% endblock %}
-            
-            {% block content %}
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+<div class="container col-lg-6 mt-3 bottom-footer">
+
+    <div class="card">
+        <div class="card-header">
             <h1>{{ post.title }}</h1>
-            
-            <p>{{ post.description }}</p>
-            <p>{{ post.date_of_event }}</p>
-            
-            <p>{{ post.slot }}</p>
-            
-            <p>{{ post.date_of_event }}</p>
-            
-            <p>{{ post.registration_expires }}</p>
-            
-            <p>{{ post.location }}</p>
-            
-            <p>Remaining Slot: {{ remaining_slot }}</p>
-            
-            <hr>
-            {% if remaining_slot == 0 %}
-            <h2 style="min-height: 48vh;">This programme is fully booked.</h2>
-            {% else %}
-                <div>
-                    {% if user.is_authenticated %}
-                    <div class="row" style="min-height: 48vh;">
-                        <div class="col-md-8 mt-3 offset-md-2">
-                            <form method="post">
-                                <div style="display: none;">
-                                    {{ form | crispy }}
-                                    {% csrf_token %}
-                                </div>
-                                
-                                    <input type="hidden" name="event" value="{{ post.id }}">
-                                <button class="btn btn-warning" type="submit">Register</button>
-                            </form> 
-                        </div>
-                        
-                    </div>
-                    
-                    {% else %}
-                    <div class="row">
-                        <div class="col-md-8 mt-3 offset-md-2">
-                            <p><a href="{% url 'account_login' %}">Login</a> for faster experience</p>
-                            <form method="post">
-                                {{ form | crispy }}
-                                {% csrf_token %}
-                                <input type="hidden" name="event" value="{{ post.id }}">
-                                <button class="btn btn-warning" type="submit">Register</button>
-                            </form>    
-                        </div>
-                        
-                    </div>
-                    
-                    {% endif %}
-                </div>
-                </div>
-                    
+        </div>
+        <div class="card-body">
+            <div class="badge badge-primary text-wrap bg-info font-weight-bold">
+                <b>Event Detail:</b>
             </div>
-            {% endif %}
+            <p>{{ post.description }}</p>
+            <p>Remaining Slot: {{ remaining_slot }}</p>
+            <p>Date: {{ post.date_of_event }}</p>
+            <p>Registraion expiry: {{ post.registration_expires }}</p>
+            <p>Location: {{ post.location }}</p>
         </div>
     </div>
+    
+
+    <hr>
+    <div>
+        {% if remaining_slot == 0 %}
+        <h5 class="text-info" style="min-height: 48vh;">This programme is fully booked.</h5>
+        {% else %}
+            <div>
+                {% if user.is_authenticated %}
+                <div>
+                    <div>
+                        <form method="post">
+                            <div style="display: none;">
+                                {{ form | crispy }}
+                                {% csrf_token %}
+                            </div>
+                            
+                                <input type="hidden" name="event" value="{{ post.id }}">
+                            <button class="btn btn-warning" type="submit">Register</button>
+                        </form> 
+                    </div>
+                    
+                </div>
+                    
+                {% else %}
+                <div class="row">
+                    <h5>Register for this event</h5>
+                    <p><a class="text-info" href="{% url 'account_login' %}">Login</a> for faster experience</p>
+                </div>
+                <form method="post">
+                    {{ form | crispy }}
+                    {% csrf_token %}
+                    <input type="hidden" name="event" value="{{ post.id }}">
+                    <button class="btn btn-warning" type="submit">Register</button>
+                </form>    
+                {% endif %}
+            </div>
+        {% endif %}
+    
+    </div>
+
+    
 </div>
-  
+
 {% endblock %}

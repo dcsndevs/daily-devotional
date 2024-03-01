@@ -11,3 +11,7 @@ linkElements.forEach(function(linkElement) {
     });
 });
 
+// Initialize tooltips
+$(document).ready(function(){
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});

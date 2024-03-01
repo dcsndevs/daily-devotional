@@ -4,139 +4,143 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {% if post %}{{ post.title }}{% else %}No Post for Today{% endif %}
+    {{ post.title }}
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>{{ post.title }}</h1>
-        <a href="{% url 'archive' %}">List of previous devotionals</a>
-        <p>Date: {{ post.active_date }}</p>
-        <p>Memory Verse: {{ post.memory_verse }}</p>
-        <p>{{ post.content }}</p>
-        <p>Bible Reading Plan: </p>
-        <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
-        <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
-    
-       <div>
-            <p>
-                {% if user.is_authenticated %}
-                    <form action="{% url 'post_like' post.slug %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="post-like">
-                            {% if user in post.likes.all %}
-                                Unlike
-                            {% else %}
-                                Like
-                            {% endif %}
-                        </button>
-                    </form>
-                {% else %}
-                    <span>Login to like this Devotional</span>
-                {% endif %}
-                <span>{{ post.number_of_likes }}</span>
-            </p>
-       </div>
-       <hr>
-        <div class="col-1">
-            {% with comments.count as total_comments %}
-            <strong class="text-secondary"><i class="far fa-comments"></i>
-                {{ total_comments }}
-            </strong>
-            
-            {% endwith %}
+<div class="container">
+    <!-- Devotional content -->
+    <div>
+        <div class="badge badge-primary text-wrap bg-info font-weight-normal">
+            <h3>{{ post.title }}</h3>
         </div>
-    
-        <div>
-            <h2>Write a comment</h2>
-            {% if user.is_authenticated %}
-                <p>Commenting as: {{ user.username }}</p>
-            {% else %}
-                <p>To make and like comments, you need to 
-                    <a href="{% url 'account_login' %}">Login</a> 
-                    or 
-                    <a href="{% url 'account_signup' %}">Register</a>
-                </p>
-            {% endif %}
-            {% if user.is_authenticated %}
-                <form method="post">
-                    {{ comment_form | crispy }}
-                    {% csrf_token %}
-                    
-                    
-                <button type="submit">Comment</button>
-                </form>
-            {% else %}
-            {% endif %}
-                
+
+        <p>{{ post.active_date }}</p>
+        <div class="p-3 mb-3 card">
+            <p><b>Memory Verse:</b> <br>{{ post.memory_verse }}</p>
         </div>
-    
-        <!-- Displaying count of comments -->
-        <div class="row">
-        <div class="col-12">
-        <strong class="text-secondary">
-            <i class="far fa-comments"></i> {{ comment_count }}
-        </strong>
+        <div class="card mb-3 p-3">
+            <p><b>Text:</b> <br>{{ post.content }}</p>
         </div>
-        <div class="col-12">
-        <hr>
-        </div>
-        </div>
-        <!-- Displaying Comments -->
-        <div class="row">
-        <div class="col-md-8 card mb-4  mt-3 ">
-        <h3>Comments:</h3>
-        <div class="card-body">
-            <!-- We want a for loop inside the empty control tags
-            to iterate through each comment in comments -->
-            {% for comment in comments %}
-                <div class="p-2 comments
-                {% if not comment.approved and comment.author == user %}
-                faded{% elif not comment.approved %} d-none{% endif %}">
-                <p class="font-weight-bold">
-                    {{ comment.author }}
-                    <span class="font-weight-normal">
-                    {{ comment.created_on }}
-                    </span> wrote:
-                </p>
-                <div id="comment{{ comment.id }}">
-                    {{ comment.body | linebreaks }}
-                    <p>Likes: {{ comment.likes2_count }}</p>
-                    {% if user.is_authenticated %}
-                        
-                                {% if request.user in comment.likes2.all %}
-                                <form action="{% url 'like_comment' comment.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="like-comment">
-                                    Unlike
-                                </button>
-                                {% elif request.user == comment.author %}
-                                    <button class="btn btn-edit" comment_id="{{ comment.id }}">Edit</button>
-                                    <button class="btn btn-delete"comment_id="{{ comment.id }}">Delete</button>
-                                    You're the author(Icon here)
-                                {% else %}
-                                <form action="{% url 'like_comment' comment.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="like-comment">
-                                    like
-                                </button>
-                                {% endif %}
-                            
-                        </form>
-                    {% else %}
-                        <span><i class="far fa-heart"></i> or remove</span>
-                    {% endif %}
-                </div>
-    
-            <!-- Our for loop ends here -->
-            {% endfor %}
-        </div>
-        </div>
-        </div>
-        </div>  
-    
+        
     </div>
+
+    <!-- post and like icons -->
+    <div>
+        {% if user.is_authenticated %}
+        <p>
+            {% if comments %}
+                {% for comment in comments %}
+                    {% if user == comment.author %}
+                <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+            {% endif %}
+            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
+            {% if user in post.likes.all %}
+            <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+            {% else %}
+            <a href="{% url 'post_like' post.slug %}" class="btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% endif %}
+            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
+        </p>
+        {% else %}
+        <p>
+            {% if not post.comment.all %}
+            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
+            {% else %}
+            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
+            {% endif %}
+            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
+            {% if user in post.likes.all %}
+            <a href="#" class="btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+            {% else %}
+            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% endif %}
+            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
+        </p>
+        {% endif %}
+
+    </div>
+    <div>
+        <p>Bible Reading Plan:</p>
+        <ul>
+            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
+            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
+        </ul>
+    </div>
+
+    <!-- comment section title -->
+    
+
+
+    <div class="usercomments">
+        {% for comment in comments %}
+        <p class="badge badge-primary text-wrap bg-info font-weight-normal">
+            <a>Comments</a>
+        </p>
+        <p>{{ comment.author }}, ({{ comment.created_on }}) wrote:</p>
+        <p>{{ comment.body | linebreaks }}</p>
+        {% if user.is_authenticated and comment.author == user %}
+        <p class="condition1">
+            {% if not comment.likes2.all %}
+            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% else %}
+            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
+        </p>
+        <p>
+            <a href="{% url 'update_comment' pk=comment.id %}" type="button" class="btn btn-edit btn-warning btn-sm">Edit</a>
+            <a href="{% url 'delete_comment' pk=comment.id %}" type="button" class="btn btn-edit btn-danger btn-sm">Delete</a>
+        </p>
+
+        {% elif user.is_authenticated and comment.author != user %}
+        <p class="condition2">
+            {% if not comment.likes2.all %}
+            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% elif user in comment.likes2.all %}
+            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% else %}
+            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
+        </p>
+        {% else %}
+        <p class="condition3">
+            {% if not comment.likes2.all %}
+            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% else %}
+            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+            {% endif %} <sup>{{ comment.likes2_count }}</sup>
+        </p>
+        {% endif %}
+        {% endfor %}
+              
+    </div>
+
+    <div class="writeacomment">
+        <h5>Write a comment</h5>
+        {% if user.is_authenticated %}
+        <a><em>Commenting as: {{ user.username }}</em></a>
+            <div>
+                <form id="commentForm" method="post">
+                    {% csrf_token %}
+                    {{ comment_form | crispy }}
+                    <button id="submitButton" type="submit" class="btn btn-warning btn-sm">Submit</button>
+                </form>
+            </div>
+            
+        {% else %}
+        <p>To make or like comments, you need to <a class="text-info" href="{% url 'account_login' %}">Login</a> or <a class="text-info" href="{% url 'registration' %}">Register</a></p>
+        {% endif %}
+    </div>
+</div>
+
+
 {% endblock %}
+
+
 
 {% block js_script %}
 <script src="{% static 'js/comments.js' %}"></script>

@@ -9,15 +9,24 @@
 
 {% block content %}
 <div class="container">
-    <div class="devcontent">
-        <h1>{{ post.title }}</h1>
-        <p>Active Date: {{ post.active_date }}</p>
-        <p>Memory Verse: {{ post.memory_verse }}</p>
-        <p>{{ post.content }}</p>
+    <!-- Devotional content -->
+    <div>
+        <div class="badge badge-primary text-wrap bg-info font-weight-normal">
+            <h3>{{ post.title }}</h3>
+        </div>
+
+        <p>{{ post.active_date }}</p>
+        <div class="p-3 mb-3 card">
+            <p><b>Memory Verse:</b> <br>{{ post.memory_verse }}</p>
+        </div>
+        <div class="card mb-3 p-3">
+            <p><b>Text:</b> <br>{{ post.content }}</p>
+        </div>
         
     </div>
 
-    <div class="postlikecontent">
+    <!-- post and like icons -->
+    <div>
         {% if user.is_authenticated %}
         <p>
             {% if comments %}
@@ -58,17 +67,20 @@
     <div>
         <p>Bible Reading Plan:</p>
         <ul>
-            <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
-            <li><a href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
+            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
+            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
         </ul>
     </div>
 
-    <div class="commentsectiontitle">
-        <h5>Comments</h5>
-    </div>
+    <!-- comment section title -->
+    
+
 
     <div class="usercomments">
         {% for comment in comments %}
+        <p class="badge badge-primary text-wrap bg-info font-weight-normal">
+            <a>Comments</a>
+        </p>
         <p>{{ comment.author }}, ({{ comment.created_on }}) wrote:</p>
         <p>{{ comment.body | linebreaks }}</p>
         {% if user.is_authenticated and comment.author == user %}
@@ -110,7 +122,7 @@
     <div class="writeacomment">
         <h5>Write a comment</h5>
         {% if user.is_authenticated %}
-        <p>Commenting as: {{ user.username }}</p>
+        <a><em>Commenting as: {{ user.username }}</em></a>
             <div>
                 <form id="commentForm" method="post">
                     {% csrf_token %}
@@ -120,7 +132,7 @@
             </div>
             
         {% else %}
-        <p>To make or like comments, you need to <a href="{% url 'account_login' %}">Login</a> or <a href="{% url 'registration' %}">Register</a></p>
+        <p>To make or like comments, you need to <a class="text-info" href="{% url 'account_login' %}">Login</a> or <a class="text-info" href="{% url 'registration' %}">Register</a></p>
         {% endif %}
     </div>
 </div>
@@ -131,5 +143,5 @@
 
 
 {% block js_script %}
-
+<script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}

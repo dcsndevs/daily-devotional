@@ -12,11 +12,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="bottom-footer">
-            {% if user.is_authenticated %}
-        <h2>King James Bible</h2>
-        <div class="row container">
-            <div class="col-md-8 mt-3 offset-md-2">
+    <div class="container bottom-footer">
+        {% if user.is_authenticated %}
+        <div class="badge badge-primary text-wrap bg-info">
+            <a>King James Bible</a>
+        </div>
+        <div class="row">
+            <div>
                 <form id="bible-form">
                     {{ form|crispy }}
                     
