@@ -247,8 +247,8 @@ def view_verse(request, scripture):
     API and displays it using Javascript.
     """
 
-    # Make request to Bible API with KJV translation and verse numbers
-    api_url = f'https://bible-api.com/{scripture}?translation=kjv&verse_numbers=true'
+    z = f'https://bible-api.com/{scripture}?translation=kjv&verse_numbers=true'
+    api_url = z
     response = requests.get(api_url)
 
     if response.status_code == 200:
