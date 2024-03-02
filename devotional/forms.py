@@ -3,10 +3,13 @@ from django import forms
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form class for users to comment on a Devotional
+    """
     def __init__(self, *args, **kwargs):
         self.id = kwargs.pop('id', None)
         super(CommentForm, self).__init__(*args, **kwargs)
-        
+
         if self.id:
             try:
                 comment = Comment.objects.get(pk=self.id)
