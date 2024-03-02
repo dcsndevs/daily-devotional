@@ -22,7 +22,7 @@ class PostList(generic.ListView):
     ``queryset``
         All published instances of :model:`devotional.Post`
     ``paginate_by``
-        Number of posts per page.
+        12 devotionals per page.
     **Template:**
 
     :template:`devotional/archive.html`

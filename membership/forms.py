@@ -3,17 +3,21 @@ from django import forms
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form class for users to register their profiles
+    """
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'email', 'picture', 'bio', 'location',
-                  'where_from', 'phone', 'relationship_status', 'favourite_scripture', 
+        fields = ['first_name', 'last_name', 'email', 'picture', 'bio',
+                                'location', 'where_from', 'phone',
+                  'relationship_status', 'favourite_scripture',
                   'favourite_bible_character', 'education', 'handle']
-        
+
     def __init__(self, *args, **kwargs):
-        self.user_id = kwargs.pop('user_id', None)        
+        self.user_id = kwargs.pop('user_id', None)
         self.user = kwargs.pop('user', None)
         super(ProfileForm, self).__init__(*args, **kwargs)
-        
+
         if self.user and self.user.is_authenticated:
             self.fields['first_name'].initial = self.user.first_name
             self.fields['last_name'].initial = self.user.last_name
