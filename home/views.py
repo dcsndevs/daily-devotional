@@ -13,7 +13,7 @@ def home(request):
     """
 
     programmes = Programmes.objects.filter(status=1).order_by('?')[:3]
-    message = "Your message is sent! We would get back to you soon!"
+    text = "Your message is sent! We would get back to you soon!"
 
     if request.method == 'POST':
         home_contact_form = HomeContactForm(request.POST)
