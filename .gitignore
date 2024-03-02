@@ -10,6 +10,7 @@ cloudinary_python.txt
 notes.html
 p4/settings.py
 bootstrap-4.6.2-examples/
+message/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

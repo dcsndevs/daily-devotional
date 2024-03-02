@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from .views import handler404, handler505
 
 urlpatterns = [
     path('', include('home.urls'), name='home-urls'),
@@ -14,3 +15,6 @@ urlpatterns = [
     path('profile/', include('membership.urls'), name='membership-urls'),
     
 ]
+
+handler404 = 'p4.views.handler404'
+handler500 = 'p4.views.handler500'
