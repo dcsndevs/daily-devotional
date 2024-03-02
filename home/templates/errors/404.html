@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}404 Error{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Ooops!</h2>
+    <p>Something isn't right because this page doesn't exist.</p>
+    <div class="container">
+        <p>Click to <a href="{% url 'home' %}#contact" class="text-info">inform</a></p> us about this.
+        or
+        <p>Click to go back to the <a href="{% url 'home' %}" class="text-info">home page</a></p>
+
+    </div>
+</div>
+
+{% endblock %}

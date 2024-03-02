@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}500 Error{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Ooops!</h2>
+    <p>There seem to be an internal server issue.</p>
+    <p>We hope to resolve this as soon as possible.</p>
+    
+    <div class="container">
+        <p>Click to <a href="{% url 'home' %}#contact" class="text-info">inform</a></p> us about this.
+        or
+        <p>Click to go back to the <a href="{% url 'home' %}" class="text-info">home page</a></p>
+
+    </div>
+</div>
+
+{% endblock %}
