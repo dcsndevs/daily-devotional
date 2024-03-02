@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import handler404, handler505
+from .views import handler404, handler500
 
 urlpatterns = [
     path('', include('home.urls'), name='home-urls'),
@@ -9,7 +9,6 @@ urlpatterns = [
     path('bible/', include("bible.urls"), name='bible-urls'),
     path('devotional/', include('devotional.urls'), name='devotional-urls'),
     path('events/', include('events.urls'), name='events-urls'),
-    path('message/', include('message.urls'), name='message-urls'),
     path('newuser/', include('newuser.urls'), name='newuser'),
     path('summernote/', include('django_summernote.urls')),
     path('profile/', include('membership.urls'), name='membership-urls'),

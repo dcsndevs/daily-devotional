@@ -1,0 +1,80 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+.bottom-footer {
+  min-height: 85vh;
+}
+
+
+
+body::before {
+  display: block;
+  height: 0px;
+  content: '';
+  
+}
+
+
+.main-content{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+
+.overlap-section {
+  background-image: url("../images/header.5ad1e38ec488.png");
+  background-size: cover;
+  height: 57vh;
+  position: relative;
+  margin-top: 0px;
+  z-index: 0;
+}
+
+
+.transparent-navbar {
+  background-color: rgba(0, 0, 0, 0.318); /* Transparent background */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  z-index: 2;
+}
+
+.dark-navbar {
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background color */
+}
+
+.navbg {
+  background:linear-gradient(135deg, #172a74, #21a9af);
+    background-color:#184e8e;
+}
+
+.navbar-nav {
+  float: right !important;
+  text-align: right !important;
+}
+
+.navbar-toggler {
+  outline: none !important;
+}
+/* for two page color */
+.first-half-color {
+  height: 75%;
+  width: 100%;
+  background:linear-gradient(135deg, #172a74, #21a9af);
+  background-color:#184e8e;
+  position: fixed;
+  z-index: -2;
+  top: 0px;
+} 
+
+.second-half-color {
+  height: 25%;
+  width: 100%;
+  background-color: #FFFFFF;
+  position: fixed;
+  z-index: -3;
+  top: 0px;
+  }
+
+.card, .image-container {
+  border: none !important; /* Remove border */
+  border-radius: 15px !important; /* Remove border radius */
+}
