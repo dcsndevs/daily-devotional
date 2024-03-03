@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 STATUS = ((0, "inactive"), (1, "active"))
 RELATIONSHIP = ((0, "Choose not to say"), (1, "Yes"), (2, "No"), (3, "Not sure"), (4, "Married"))
 
-class Persona(models.Model):
+class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="owner")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

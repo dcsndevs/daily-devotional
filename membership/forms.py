@@ -1,13 +1,13 @@
-from .models import Persona
+from .models import Profile
 from django import forms
 
 
-class PersonaForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     """
     Form class for users to register their profiles
     """
     class Meta:
-        model = Persona
+        model = Profile
         fields = ['first_name', 'last_name', 'email', 'picture', 'bio',
                                 'location', 'where_from', 'phone',
                   'relationship_status', 'favourite_scripture',
@@ -16,7 +16,7 @@ class PersonaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user_id = kwargs.pop('user_id', None)
         self.user = kwargs.pop('user', None)
-        super(PersonaForm, self).__init__(*args, **kwargs)
+        super(ProfileForm, self).__init__(*args, **kwargs)
 
         if self.user and self.user.is_authenticated:
             self.fields['first_name'].initial = self.user.first_name
@@ -24,7 +24,7 @@ class PersonaForm(forms.ModelForm):
             self.fields['email'].initial = self.user.email
 
     def save(self, commit=True, user_id=None):
-        instance = super(PersonaForm, self).save(commit=False)
+        instance = super(ProfileForm, self).save(commit=False)
         if user_id:
             instance.owner_id = user_id
         if commit:

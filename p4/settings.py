@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_summernote',
     'devotional',
+    'membership',
     'bible',
     'events',
     'newuser',
     'home',
-    'persona',
     
 ]
 
