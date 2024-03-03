@@ -127,7 +127,7 @@ def current_Programme(request):
                                  'Sorry this programme is fully booked!')
                 return render(request, 'events/index.html', {'post': post})
             # Check if the email is already registered for this event
-            elif email not in email_per_event:
+            elif email in email_per_event:
                 messages.warning(request, text)
                 return render(request, 'events/index.html',
                               {'post': post,
