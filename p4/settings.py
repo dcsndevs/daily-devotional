@@ -19,7 +19,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devotional-db11bc3466f9.herokuapp.com', '192.168.0.220', '192.168.0.255']
 
@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_summernote',
     'devotional',
-    'membership',
     'bible',
     'events',
     'newuser',
     'home',
+    'persona',
     
 ]
 

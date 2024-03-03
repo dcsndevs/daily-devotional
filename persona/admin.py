@@ -1,8 +1,10 @@
 from django.contrib import admin
-from .models import Profile
+from django.contrib.auth.models import User
+from .models import Persona
 
 
-class ProfileAdmin(admin.ModelAdmin):
+# Register your models here.
+class PersonaAdmin(admin.ModelAdmin):
     """
     Lists fields for display in admin, fileds for search,
     field filters, fields to prepopulate and rich-text editor.
@@ -11,5 +13,4 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'email', 'location')
     list_filter = ('location', 'joined_date')
 
-
-admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Persona, PersonaAdmin)
