@@ -17,10 +17,12 @@
 
         <p>{{ post.active_date }}</p>
         <div class="p-3 mb-3 card">
-            <p><b>Memory Verse:</b> <br>{{ post.memory_verse }}</p>
+            <p><b>Memory Verse:</b><br></p>
+            <articel>{{ post.memory_verse }}</article>
         </div>
         <div class="card mb-3 p-3">
-            <p><b>Text:</b> <br>{{ post.content }}</p>
+            <p><b>Text:</b></p>
+            <article>{{ post.content }}</article>
         </div>
         
     </div>
@@ -76,15 +78,15 @@
     
 
 
-    <div class="usercomments">
+    <div>
         {% for comment in comments %}
-        <p class="badge badge-primary text-wrap bg-info font-weight-normal">
+        <div class="badge badge-primary text-wrap bg-info font-weight-normal">
             <a>Comments</a>
-        </p>
+        </div>
         <p>{{ comment.author }}, ({{ comment.created_on }}) wrote:</p>
         <p>{{ comment.body | linebreaks }}</p>
         {% if user.is_authenticated and comment.author == user %}
-        <p class="condition1">
+        <p>
             {% if not comment.likes2.all %}
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% else %}
@@ -97,7 +99,7 @@
         </p>
 
         {% elif user.is_authenticated and comment.author != user %}
-        <p class="condition2">
+        <p>
             {% if not comment.likes2.all %}
             <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% elif user in comment.likes2.all %}
@@ -107,7 +109,7 @@
             {% endif %} <sup>{{ comment.likes2_count }}</sup>
         </p>
         {% else %}
-        <p class="condition3">
+        <p>
             {% if not comment.likes2.all %}
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% else %}

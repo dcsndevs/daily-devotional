@@ -16,15 +16,17 @@
     <div class="row">
         {% for post in object_list %}
         <div class="col-md-6">
-            <a href="{% url 'member_profile' owner=post.owner.id %}" class="text-dark">
+            <a class="text-dark">
                 <div class="card mb-3">
                     <div class="card-header" style="background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(236, 234, 234, 0.8));">
+                        <a href="{% url 'member_profile' owner=post.owner.id %}">
                         <img src="{{ post.picture.url }}" class="img-fluid img-thumbnail rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                        </a>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ post.first_name }}</h5>
-                        <p class="card-text">Favourite Bible Character: {{ post.favourite_bible_character }}</p>
-                        <p class="card-text">Location: {{ post.location }} <hr></p>
+                        <h5><a class="card-text" href="{% url 'member_profile' owner=post.owner.id %}">{{ post.first_name }}</a></h5>
+                        <p><a class="card-text">Favourite Bible Character: {{ post.favourite_bible_character }}</a></p>
+                        <p><a class="card-text">Location: {{ post.location }}</a><hr></p>
                     </div>
                 </div>
             </a>

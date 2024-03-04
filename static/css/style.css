@@ -4,7 +4,12 @@
   min-height: 85vh;
 }
 
-
+.hero-cen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
 
 body::before {
   display: block;

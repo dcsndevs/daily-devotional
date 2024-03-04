@@ -1,9 +1,15 @@
 {% load static %}
 
-{% url 'home' as 'daily' %}
-{% url 'about' as member_area_url %}
+{% url 'home' as home_url %}
+{% url 'daily' as current_devotional_url %}
+{% url 'archive' as devotional_archive_url %}
+{% url 'programe_list' as programmes_url %}
+{% url 'home#contact' as contact_url %}
+{% url 'bible' as bible_url %}
+{% url 'community' as community_url %}
+{% url 'new_membership_profile' as member_area_url %}
 {% url 'account_login' as login_url %}
-{% url 'account_signup' as registration %}
+{% url 'registration' as registration_url %}
 {% url 'account_logout' as logout_url %}
 
 
@@ -26,7 +32,7 @@
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-dark py-2 bg-dark base-nav">
                 <div class="container">
-                    <h1><a href="{% url 'home' %}" class="navbar-brand">Haven Church</a></h1>
+                    <h1><a href="{% url 'home' %}" class="navbar-brand {% if request.path == home_url %}active" aria-current="page{% endif %}">Haven Church</a></h1>
             
                     <div>
                         <button
@@ -52,15 +58,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-book"></i> Devotional</a>
                                 <ul class="dropdown-menu bg-dark">
-                                    <li><a class="dropdown-item text-info" href="{% url 'daily' %}">Today's Devotional</a></li>
-                                    <li><a class="dropdown-item text-info" href="{% url 'archive' %}">Devotional Archive</a></li>
+                                    <li><a class="dropdown-item text-info" href="{% url 'daily' %} {% if request.path == current_devotional_url %}active" aria-current="page{% endif %}">Today's Devotional</a></li>
+                                    <li><a class="dropdown-item text-info" href="{% url 'archive' %} {% if request.path == devotional_archive_url %}active" aria-current="page{% endif %}">Devotional Archive</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'programe_list' %}" aria-current="Bible app"><i class="bi-clock"></i> Programmes</a>
+                                <a class="nav-link" href="{% url 'programe_list' %} {% if request.path == programmes_url %}active" aria-current="page{% endif %}"><i class="bi-clock"></i> Programmes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'home' %}#contact"><i class="bi-envelope"></i> Contact</a>
+                                <a class="nav-link" href="{% url 'home' %}#contact {% if request.path == home_url %}active" aria-current="page{% endif %}"><i class="bi-envelope"></i> Contact</a>
                             </li>
                             </ul>
                         </div>
@@ -69,23 +75,24 @@
                             <ul class="navbar-nav">
                                 {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'bible' %}" aria-current="Bible app"><i class="bi-phone"></i> Bible App</a>
+                                    <a class="nav-link" href="{% url 'bible' %} {% if request.path == bible_url %}active" aria-current="page{% endif %}""><i class="bi-phone"></i> Bible App</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'community' %}" aria-current="community"><i class="bi-people"></i> Community</a>
-                                </li>                                <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_membership_profile' %}" aria-current="member area"><i class="bi-person"></i> Member Area</a>
+                                    <a class="nav-link" href="{% url 'community' %} {% if request.path == community_url  %}active" aria-current="page{% endif %}"><i class="bi-people"></i> Community</a>
+                                </li>                                
+                                <li class="nav-item">
+                                <a class="nav-link" href="{% url 'view_membership_profile' %} {% if request.path == member_area_url %}active" aria-current="page{% endif %}"><i class="bi-person"></i> Member Area</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_logout' %}"><i class="bi-key"></i> Logout</a>
+                                    <a class="nav-link" href="{% url 'account_logout' %} {% if request.path == login_url %}active" aria-current="page{% endif %}"><i class="bi-key"></i> Logout</a>
                                 </li>
                                 
                                 {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'registration' %}"><i class="bi-pen"></i> Sign Up</a>
+                                    <a class="nav-link" href="{% url 'registration' %} {% if request.path == registration_url %}active" aria-current="page{% endif %}"><i class="bi-pen"></i> Sign Up</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_login' %}"><i class="bi-key"></i> Log In</a>
+                                    <a class="nav-link" href="{% url 'account_login' %} {% if request.path == logout_url %}active" aria-current="page{% endif %}"><i class="bi-key"></i> Log In</a>
                                 </li>
                                 {% endif %}
                             </ul>
