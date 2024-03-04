@@ -14,43 +14,47 @@
 {% block content %}
     <div class="container bottom-footer">
         {% if user.is_authenticated %}
-        <div class="badge badge-primary text-wrap bg-info">
-            <a>King James Bible</a>
-        </div>
-        <div class="row">
-            <div>
-                <form id="bible-form">
-                    {{ form|crispy }}
+        <div class="m-3">
+            <div class="badge badge-primary text-wrap bg-info">
+                <a>King James Bible</a>
+            </div>
+            <div class="row">
+                <div>
+                    <form id="bible-form">
+                        {{ form|crispy }}
+                        
+                        <div class="form-group">
+                            <label for="book-select">Select:</label>
+                            <select id="book-select" class="form-control">
+                                <option value="" selected>Book</option>
+                            </select>
+                        </div>
                     
-                    <div class="form-group">
-                        <label for="book-select">Select:</label>
-                        <select id="book-select" class="form-control">
-                            <option value="" selected>Book</option>
-                        </select>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="chapter-select"></label>
-                        <select id="chapter-select" class="form-control">
-                            <option value="" selected>Chapter</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="chapter-select"></label>
+                            <select id="chapter-select" class="form-control">
+                                <option value="" selected>Chapter</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-warning btn-sm mt-2" type="submit">Go!</button>
+                    </form>
+                    <hr>
+                    <h2><div id="scripture-title"></div></h2>
+                    <p><div id="scripture-content"></div></p>
                     
-                    <button class="btn btn-warning btn-sm mt-2" type="submit">Go!</button>
-                </form>
-                <hr>
-                <h2><div id="scripture-title"></div></h2>
-                <p><div id="scripture-content"></div></p>
-                
-            </div>    
+                </div>    
+            </div>
         </div>
             
         {% else %}
-        <p>To access the Bible app, you need to
-                    <a href="{% url 'account_login' %}?next={{ request.path }}">Login</a> 
-                    or 
-                    <a href="{% url 'registration' %}">Register</a>
-                </p>
+        <div class="m-3 bottom-footer">
+            <p>To access the Bible app, you need to
+                <a href="{% url 'account_login' %}?next={{ request.path }}">Login</a> 
+                or 
+                <a href="{% url 'registration' %}">Register</a>
+            </p>
+        </div>
         {% endif %}
     </div>
 {% endblock %}

@@ -11,7 +11,20 @@ linkElements.forEach(function(linkElement) {
     });
 });
 
-// Initialize tooltips
+// Initialize tooltips to guide users
 $(document).ready(function(){
     $('[data-bs-toggle="tooltip"]').tooltip();
 });
+
+// Function to automatically close Django messages after 5seconds
+function closeMessages() {
+    setTimeout(function() {
+        document.querySelectorAll('.alert').forEach(function(message) {
+            message.remove();
+        });
+    }, 5000); // Adjust the duration (in milliseconds) as needed
+}
+
+window.onload = function() {
+    closeMessages();
+};

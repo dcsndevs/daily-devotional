@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.shortcuts import redirect
 from .forms import HomeContactForm
 from events.models import Programmes
 
@@ -21,6 +22,7 @@ def home(request):
         if home_contact_form.is_valid():
             home_contact_form.save()
             messages.add_message(request, messages.SUCCESS, text)
+            return redirect('home')
 
     else:
         home_contact_form = HomeContactForm()
