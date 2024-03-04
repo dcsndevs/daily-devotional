@@ -18,7 +18,7 @@
         <p>{{ post.active_date }}</p>
         <div class="p-3 mb-3 card">
             <p><b>Memory Verse:</b><br></p>
-            <articel>{{ post.memory_verse }}</article>
+            <article>{{ post.memory_verse }}</article>
         </div>
         <div class="card mb-3 p-3">
             <p><b>Text:</b></p>
@@ -31,8 +31,12 @@
     <div>
         {% if user.is_authenticated %}
         <p>
-            {% if user in comment.author %}
-                <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+            {% if user.is_authenticated %}
+                {% if user.username in commenters %}
+                    <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                {% else %}
+                    <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                {% endif %}
             {% else %}
             <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
             {% endif %}
@@ -80,7 +84,7 @@
             <a>{{ comment.author }}</a>
         </div>
         <p>At ({{ comment.created_on }}) | wrote:</p>
-        <p>{{ comment.body | linebreaks }}</p>
+        <article>{{ comment.body | linebreaks }}</article>
         {% if user.is_authenticated and comment.author == user %}
         <p>
             {% if not comment.likes2.all %}
@@ -89,10 +93,10 @@
             <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
             {% endif %} <sup>{{ comment.likes2_count }}</sup>
         </p>
-        <p>
-            <a href="{% url 'update_comment' pk=comment.id %}" type="button" class="btn btn-edit btn-warning btn-sm">Edit</a>
-            <a href="{% url 'delete_comment' pk=comment.id %}" type="button" class="btn btn-edit btn-danger btn-sm">Delete</a>
-        </p>
+        <div>
+            <a href="{% url 'update_comment' pk=comment.id %}" class="btn btn-edit btn-warning btn-sm">Edit</a>
+            <a href="{% url 'delete_comment' pk=comment.id %}" class="btn btn-edit btn-danger btn-sm">Delete</a>
+        </div>
 
         {% elif user.is_authenticated and comment.author != user %}
         <p>
