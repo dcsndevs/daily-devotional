@@ -89,10 +89,15 @@
         </div>
     </div>
     {% elif user.is_authenticated %}
-    <p>To access your member area, you need to create a profile.</p>
-    <a href="{% url 'new_membership_profile' %}">Create one now!</a>
+    <div class="m-3 bottom-footer">
+        <p>To access your member area, you need to create a profile.</p>
+        <a href="{% url 'new_membership_profile' %}">Create one now!</a>
+    </div>
     {% else %}
-    <p>You need to sign up using the register link in the menu above.</p>
+    <div class="m-3 bottom-footer">
+        <p>You need to sign up using the register link in the menu above.</p>
+    </div>
+    
     {% endif %}
 </div>
 
