@@ -1,20 +1,15 @@
 import cloudinary.uploader
-from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db import transaction
-from django.utils import timezone
 from django.views import generic
 from django.views.generic import UpdateView, DeleteView
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
-from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.urls import reverse_lazy
 from .models import Profile
 from .forms import ProfileForm
-from cloudinary.uploader import upload
 
 class PostList(generic.ListView):
     """
