@@ -14,32 +14,44 @@
 {% block content %}
     <div class="container bottom-footer">
         {% if user.is_authenticated %}
-        <div class="m-3">
+        <div class="mt-3">
             <div class="badge badge-primary text-wrap bg-info">
                 <a>King James Bible</a>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div>
-                    <form id="bible-form">
-                        {{ form|crispy }}
-                        
-                        <div class="form-group">
-                            <label for="book-select">Select:</label>
-                            <select id="book-select" class="form-control">
-                                <option value="" selected>Book</option>
-                            </select>
+                    <div class="row text-center g-4 mb-3">
+                        <div class="col-sm">
+                          <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                              <div class="h3 mb-3">
+                                <i class="bi bi-book"></i>
+                              </div>
+                              <form id="bible-form">
+                                {{ form|crispy }}
+                                
+                                <div class="form-group">
+                                    <label for="book-select">Select:</label>
+                                    <select id="book-select" class="form-control">
+                                        <option value="" selected>Book</option>
+                                    </select>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="chapter-select"></label>
+                                    <select id="chapter-select" class="form-control">
+                                        <option value="" selected>Chapter</option>
+                                    </select>
+                                </div>
+                                
+                                <button class="btn btn-warning btn-sm mt-2" type="submit">Go!</button>
+                            </form>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                    </div>
                     
-                        <div class="form-group">
-                            <label for="chapter-select"></label>
-                            <select id="chapter-select" class="form-control">
-                                <option value="" selected>Chapter</option>
-                            </select>
-                        </div>
-                        
-                        <button class="btn btn-warning btn-sm mt-2" type="submit">Go!</button>
-                    </form>
-                    <hr>
                     <h2><div id="scripture-title"></div></h2>
                     <p><div id="scripture-content"></div></p>
                     

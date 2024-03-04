@@ -4,6 +4,10 @@
   min-height: 85vh;
 }
 
+.form-text {
+  color: #5bc0de !important;
+}
+
 .hero-cen {
   display: flex;
   align-items: center;

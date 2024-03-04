@@ -10,28 +10,37 @@
 
 {% block content %}
 
-<div class="container col-lg-6 mt-3 bottom-footer">
+<div class="container bottom-footer mt-3 col-sm-6">
     <div>
-        <div class="text-left mb-4">
-            <h3 class="text-info">{% trans "Sign In" %}</h3>
+        <h3>Login</h3>
 
-            <p>Welcome back to the LH Daily Devotionals. To leave a comment or like a post, please log in. If
-                you
-                have not created an account yet, then <a class="link text-info" href="{% url 'registration' %}">sign up</a>
-                first.</p>
-        </div>
+        <p>Welcome to the LH Daily Devotionals. To leave a comment or like a post, please log in. If
+            you
+            have not created an account yet, then <a class="link text-info" href="{% url 'registration' %}">sign up</a>
+            first.</p>
     </div>
+
     <div>
-        <div>
-            <form class="login form-signin" method="POST" action="{% url 'account_login' %}">
-                {% csrf_token %}
-                {{ form | crispy }}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <button class="btn btn-warning" type="submit">{% trans "Sign In" %}</button>
-            </form>
+        <div class="text-center g-4">
+          <div>
+            <div class="card bg-dark text-light">
+              <div class="card-body text-center">
+                <div class="h3 mb-3">
+                  <i class="bi bi-key"></i>
+                </div>
+                <form class="login" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button class="btn btn-warning right" type="submit">{% trans "Sign In" %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
+
 </div>
 {% endblock %}

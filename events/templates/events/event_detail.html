@@ -51,16 +51,34 @@
                 </div>
                     
                 {% else %}
-                <div class="row">
-                    <h5>Register for this event</h5>
-                    <p><a class="text-info" href="{% url 'account_login' %}">Login</a> for faster experience</p>
+                <div class="col-sm-6 mt-3"></div>
+
+                    <div class="row">
+                        <h5>Register for this event</h5>
+                        <p><a class="text-info" href="{% url 'account_login' %}">Login</a> for faster experience</p>
+                    </div>
+                    
+                    <div class="row text-center g-4">
+                        <div class="col-sm">
+                          <div class="card bg-dark text-light">
+                            <div class="card-body text-center">
+                              <div class="h3 mb-3">
+                                <i class="bi bi-calendar-event"></i>
+                              </div>
+                              <form method="post">
+                                {{ form | crispy }}
+                                {% csrf_token %}
+                                <input type="hidden" name="event" value="{{ post.id }}">
+                                <button class="btn btn-warning" type="submit">Register</button>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 </div>
-                <form method="post">
-                    {{ form | crispy }}
-                    {% csrf_token %}
-                    <input type="hidden" name="event" value="{{ post.id }}">
-                    <button class="btn btn-warning" type="submit">Register</button>
-                </form>    
+                 
                 {% endif %}
             </div>
         {% endif %}
