@@ -58,12 +58,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-book"></i> Devotional</a>
                                 <ul class="dropdown-menu bg-dark">
-                                    <li><a class="dropdown-item text-info" href="{% url 'daily' %} {% if request.path == current_devotional_url %}active" aria-current="page{% endif %}">Today's Devotional</a></li>
-                                    <li><a class="dropdown-item text-info" href="{% url 'archive' %} {% if request.path == devotional_archive_url %}active" aria-current="page{% endif %}">Devotional Archive</a></li>
+                                    <li><a class="dropdown-item text-info {% if request.path == current_devotional_url %}active" aria-current="page{% endif %}" href="{% url 'daily' %}">Today's Devotional</a></li>
+                                    <li><a class="dropdown-item text-info {% if request.path == devotional_archive_url %}active" aria-current="page{% endif %}" href="{% url 'archive' %}">Devotional Archive</a></li>                                    
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'programe_list' %} {% if request.path == programmes_url %}active" aria-current="page{% endif %}"><i class="bi-clock"></i> Programmes</a>
+                                <a class="nav-link {% if request.path == programmes_url %}active" aria-current="page{% endif %}" href="{% url 'programe_list' %}"><i class="bi-clock"></i> Programmes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {% if request.path == home_url %}active" aria-current="page{% endif %}" href="{% url 'home' %}#contact"><i class="bi-envelope"></i> Contact</a>
@@ -75,24 +75,24 @@
                             <ul class="navbar-nav">
                                 {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'bible' %} {% if request.path == bible_url %}active" aria-current="page{% endif %}"><i class="bi-phone"></i> Bible App</a>
+                                    <a class="nav-link {% if request.path == bible_url %}active" aria-current="page{% endif %}" href="{% url 'bible' %}"><i class="bi-phone"></i> Bible App</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'community' %} {% if request.path == community_url  %}active" aria-current="page{% endif %}"><i class="bi-people"></i> Community</a>
+                                    <a class="nav-link {% if request.path == community_url  %}active" aria-current="page{% endif %}" href="{% url 'community' %}"><i class="bi-people"></i> Community</a>
                                 </li>                                
                                 <li class="nav-item">
-                                <a class="nav-link" href="{% url 'view_membership_profile' %} {% if request.path == member_area_url %}active" aria-current="page{% endif %}"><i class="bi-person"></i> Member Area</a>
+                                <a class="nav-link {% if request.path == member_area_url %}active" aria-current="page{% endif %}" href="{% url 'view_membership_profile' %}"><i class="bi-person"></i> Member Area</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_logout' %} {% if request.path == login_url %}active" aria-current="page{% endif %}"><i class="bi-key"></i> Logout</a>
+                                    <a class="nav-link {% if request.path == login_url %}active" aria-current="page{% endif %}" href="{% url 'account_logout' %}"><i class="bi-key"></i> Logout</a>
                                 </li>
                                 
                                 {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'registration' %} {% if request.path == registration_url %}active" aria-current="page{% endif %}"><i class="bi-pen"></i> Sign Up</a>
+                                    <a class="nav-link {% if request.path == registration_url %}active" aria-current="page{% endif %}" href="{% url 'registration' %}"><i class="bi-pen"></i> Sign Up</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'account_login' %} {% if request.path == logout_url %}active" aria-current="page{% endif %}"><i class="bi-key"></i> Log In</a>
+                                    <a class="nav-link {% if request.path == logout_url %}active" aria-current="page{% endif %}" href="{% url 'account_login' %} "><i class="bi-key"></i> Log In</a>
                                 </li>
                                 {% endif %}
                             </ul>
