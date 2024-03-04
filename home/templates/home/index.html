@@ -4,142 +4,124 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {{ post.title }}
+    Haven Church
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <!-- Devotional content -->
-    <div>
-        <div class="badge badge-primary text-wrap bg-info font-weight-normal">
-            <h3>{{ post.title }}</h3>
-        </div>
 
-        <p>{{ post.active_date }}</p>
-        <div class="p-3 mb-3 card">
-            <p><b>Memory Verse:</b><br></p>
-            <article>{{ post.memory_verse }}</article>
-        </div>
-        <div class="card mb-3 p-3">
-            <p><b>Text:</b></p>
-            <article>{{ post.content }}</article>
-        </div>
+<div class="first-half-color fix-top"></div>
+<div class="second-half-color fix-bottom"></div>
+<section class="text-light p-5 p-lg-0 pt-lg-5 text-center overlap-section ">
+
+  <div class="container ">
+    <div class="d-sm-flex align-items-center hero-cen">
+      <div>
+        <h2>Welcome to <span class="text-warning"> Church!</span></h2>
+        <p class="lead my-4 d-quote">
+          “I am the light of the world. Whoever follows me will not walk in darkness, 
+          but will have the light of life.” (John 8:12) -
+          Jesus
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="p-5">
+  <div class="p-0 card container">
+    <div class="row align-items-center justify-content-between">
+      
+      <div class="col-md">
+        <img src="https://res.cloudinary.com/djhi60enx/image/upload/v1708376293/uygxzxhjjxqivfotuguy.jpg" class="img-fluid" alt="pastor-rich-picture" />
+      </div>
+      <div class="col-md p-5">
+        <h2 class="text-warning">Pastor's Message</h2>
+        <p class="lead">
+          Welcome to Haven Church!!
+        </p>
+        <p>
+          It's God's desire that all men everywhere shall be saved. Salvation can only come through Jesus.
+          Not by your works alone, but by faith in Jesus.
+          Join us as we carry this message of salvation to the far ends of the world.
+          God bless you!
+          
+        </p>
+        <a href="{% url 'account_login' %}" class="btn btn-warning mt-3">
+          <i class="bi bi-chevron-right"></i> Join us
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="p-5">
+  <div class="p-0 card container">
+    <div class="row align-items-center justify-content-between">
+      
+      <div class="col-md p-5">
+        <h2 class="text-warning">Daily Devotional</h2>
+        <p class="lead">
+          The devotional is our foremost tool of reaching the nations of the workl with our gospel.
+          Daily, Pastor shares insight on God's world as it applies to our lives.
+        </p>
         
+        <a href="{% url 'daily' %}" class="btn btn-warning mt-3">
+          <i class="bi bi-chevron-right"></i> Today's Devotional
+        </a>
+      </div>
+      <div class="col-md">
+        <img src="https://res.cloudinary.com/djhi60enx/image/upload/v1709291747/bible-study_w3wzfm.jpg" class="img-fluid" alt="pastor-rich-picture" />
+      </div>
+      
     </div>
-
-    <!-- post and like icons -->
-    <div>
-        {% if user.is_authenticated %}
-        <p>
-            {% if user in comment.author %}
-                <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
-            {% else %}
-            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
-            {% endif %}
-            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
-            {% if user in post.likes.all %}
-            <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
-            {% else %}
-            <a href="{% url 'post_like' post.slug %}" class="btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %}
-            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
-        </p>
-        {% else %}
-        <p>
-            {% if not post.comment.all %}
-            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
-            {% else %}
-            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
-            {% endif %}
-            <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
-            {% if user in post.likes.all %}
-            <a href="#" class="btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
-            {% else %}
-            <a href="#" class="btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %}
-            <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
-        </p>
-        {% endif %}
-
+  </div>
+</section>
+  <!-- Upcoming events tab  -->
+<section class="container">
+  <div class="row">
+    <div class="col-md">
+      <h2 class="text-center mb-4">Upcoming Events</h2>
     </div>
-    <div>
-        <p>Bible Reading Plan:</p>
-        <ul>
-            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
-            <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
-        </ul>
-    </div>
-
-    <!-- comment section title -->
-    
-
-
-    <div>
-        {% for comment in comments %}
-        <div class="badge badge-primary text-wrap bg-info font-weight-normal">
-            <a>{{ comment.author }}</a>
+  </div>
+  <div class="row">
+    {% for programme in programmes %}
+    <div class="col-md">
+      <div class="card bg-dark text-light mb-4">
+        <div class="card-body text-center">
+          <h3 class="card-title mb-3">{{ programme.title }}</h3>
+          <p class="card-text">{{ programme.date_of_event }}</p>
+          <p class="card-text">{{ programme.location }}</p>
+          <a href="events/{{ programme.slug }}" class="btn btn-warning btn-sm">Details</a>
         </div>
-        <p>At ({{ comment.created_on }}) | wrote:</p>
-        <article>{{ comment.body | linebreaks }}</article>
-        {% if user.is_authenticated and comment.author == user %}
-        <p>
-            {% if not comment.likes2.all %}
-            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% else %}
-            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} <sup>{{ comment.likes2_count }}</sup>
-        </p>
-        <div>
-            <a href="{% url 'update_comment' pk=comment.id %}" class="btn btn-edit btn-warning btn-sm">Edit</a>
-            <a href="{% url 'delete_comment' pk=comment.id %}" class="btn btn-edit btn-danger btn-sm">Delete</a>
-        </div>
-
-        {% elif user.is_authenticated and comment.author != user %}
-        <p>
-            {% if not comment.likes2.all %}
-            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% elif user in comment.likes2.all %}
-            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% else %}
-            <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} <sup>{{ comment.likes2_count }}</sup>
-        </p>
-        {% else %}
-        <p>
-            {% if not comment.likes2.all %}
-            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% else %}
-            <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
-            {% endif %} <sup>{{ comment.likes2_count }}</sup>
-        </p>
-        {% endif %}
-        {% endfor %}
-              
+      </div>
     </div>
+    {% endfor %}
+  </div>
+</section>
 
-    <div class="writeacomment">
-        <h5>Write a comment</h5>
-        {% if user.is_authenticated %}
-        <a><em>Commenting as: {{ user.username }}</em></a>
-            <div>
-                <form id="commentForm" method="post">
-                    {% csrf_token %}
-                    {{ comment_form | crispy }}
-                    <button id="submitButton" type="submit" class="btn btn-warning btn-sm">Submit</button>
-                </form>
+<!-- Contact Form -->
+<section id="contact">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-sm">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-center">
+            <div class="h3 mb-3">
+              <i class="bi bi-chat"></i> <span>Contact us</span>
             </div>
-            
-        {% else %}
-        <p>To make or like comments, you need to <a class="text-info" href="{% url 'account_login' %}">Login</a> or <a class="text-info" href="{% url 'registration' %}">Register</a></p>
-        {% endif %}
+            <form method="post">
+              {{ home_contact_form | crispy }}
+              {% csrf_token %}
+              <button class="btn btn-warning"
+                type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 
 
-{% endblock %}
-
-
-
-{% block js_script %}
-<script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
