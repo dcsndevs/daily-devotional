@@ -31,33 +31,33 @@
             <p>
                 {% if user.is_authenticated %}
                     {% if user.username in commenters %}
-                        <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                        <a href="#" class="btn btn-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill" aria-label="click-to-comment"></i></a>
                     {% else %}
-                        <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                        <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill" aria-label="click-to-comment"></i></a>
                     {% endif %}
                 {% else %}
-                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill"></i></a>
+                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 commentfocus"><i class="bi bi-chat-fill" aria-label="click-to-comment"></i></a>
                 {% endif %}
                 <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
                 {% if user in post.likes.all %}
-                <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+                <a href="{% url 'post_like' post.slug %}" class="btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a> 
                 {% else %}
-                <a href="{% url 'post_like' post.slug %}" class="btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="{% url 'post_like' post.slug %}" class="btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% endif %}
                 <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
             </p>
             {% else %}
             <p>
                 {% if not post.comment.all %}
-                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
+                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill" aria-label="click-to-comment"></i></a>
                 {% else %}
-                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill"></i></a>
+                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle mr-5 ml-5 disabled"><i class="bi bi-chat-fill" aria-label="click-to-comment"></i></a>
                 {% endif %}
                 <span><sup>{% with comments.count as total_comments %}{{ total_comments }}{% endwith %}</sup></span>
                 {% if user in post.likes.all %}
-                <a href="#" class="btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a> 
+                <a href="#" class="btn btn-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a> 
                 {% else %}
-                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="#" class="btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% endif %}
                 <span><sup> {% with comments.count as total_comments %}{{ post.number_of_likes }}{% endwith %}</sup></span>
             </p>
@@ -67,8 +67,8 @@
         <div>
             <p>Bible Reading Plan:</p>
             <ul>
-                <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}">{{ post.bible_reading_plan1 }}</a></li>
-                <li><a class="text-info" href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}">{{ post.bible_reading_plan2 }}</a></li>
+                <li><a class="text-dark" href="{% url 'view_verse' scripture=post.bible_reading_plan1 %}" aria-label="bible-reading-chapter">{{ post.bible_reading_plan1 }}</a></li>
+                <li><a class="text-dark" href="{% url 'view_verse' scripture=post.bible_reading_plan2 %}" aria-label="bible-reading-chapter">{{ post.bible_reading_plan2 }}</a></li>
             </ul>
         </div>
 
@@ -76,39 +76,39 @@
         <div>
             {% for comment in comments %}
             <div class="badge badge-primary text-wrap bg-info font-weight-normal text-dark">
-                <a>{{ comment.author }}</a>
+                {{ comment.author }}
             </div>
-            <p>At ({{ comment.created_on }}) | wrote:</p>
+            <p>{{ comment.created_on }} | wrote:</p>
             <article>{{ comment.body | linebreaks }}</article>
             {% if user.is_authenticated and comment.author == user %}
             <p>
                 {% if not comment.likes2.all %}
-                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% else %}
-                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% endif %} <sup>{{ comment.likes2_count }}</sup>
             </p>
             <div>
-                <a href="{% url 'update_comment' pk=comment.id %}" class="btn btn-edit btn-warning btn-sm">Edit</a>
-                <a href="{% url 'delete_comment' pk=comment.id %}" class="btn btn-edit btn-danger btn-sm">Delete</a>
+                <a href="{% url 'update_comment' pk=comment.id %}" class="btn btn-edit btn-warning btn-sm" aria-label="edit-you-comment">Edit</a>
+                <a href="{% url 'delete_comment' pk=comment.id %}" class="btn btn-edit btn-danger btn-sm" aria-label="delete-your-comment">Delete</a>
             </div>
 
             {% elif user.is_authenticated and comment.author != user %}
             <p>
                 {% if not comment.likes2.all %}
-                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle" aria-label="click-to-like"><i class="bi bi-hand-thumbs-up-fill"></i></a>
                 {% elif user in comment.likes2.all %}
-                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% else %}
-                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="{% url 'like_comment' comment.id %}" class="like-comment btn btn-outline-warning btn-sm rounded-circle"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% endif %} <sup>{{ comment.likes2_count }}</sup>
             </p>
             {% else %}
             <p>
                 {% if not comment.likes2.all %}
-                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="#" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% else %}
-                <a href="" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                <a href="#" class="like-comment btn btn-outline-warning btn-sm rounded-circle disabled"><i class="bi bi-hand-thumbs-up-fill" aria-label="click-to-like"></i></a>
                 {% endif %} <sup>{{ comment.likes2_count }}</sup>
             </p>
             {% endif %}
@@ -124,12 +124,12 @@
                     <form id="commentForm" method="post">
                         {% csrf_token %}
                         {{ comment_form | crispy }}
-                        <button id="submitButton" type="submit" class="btn btn-warning btn-sm">Submit</button>
+                        <button id="submitButton" type="submit" class="btn btn-warning btn-sm" aria-label="submit">Submit</button>
                     </form>
                 </div>
                 
             {% else %}
-            <p>To make or like comments, you need to <a class="text-info" href="{% url 'account_login' %}">Login</a> or <a class="text-info" href="{% url 'registration' %}">Register</a></p>
+            <p>To make or like comments, you need to <a class="text-dark" href="{% url 'account_login' %}" aria-label="login">Login</a> or <a class="text-dark" href="{% url 'registration' %}" aria-label="register">Register</a></p>
             {% endif %}
         </div>
         

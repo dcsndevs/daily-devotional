@@ -17,7 +17,7 @@
 
             <p>Welcome to the LH Daily Devotionals. To leave a comment or like a post, please log in. If
                 you
-                have not created an account yet, then <a class="link text-info" href="{% url 'registration' %}">sign up</a>
+                have not created an account yet, then <a class="link text-dark" href="{% url 'registration' %}">sign up</a>
                 first.</p>
         </div>
     </div>
@@ -36,7 +36,7 @@
                     {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
-                    <button class="btn btn-warning right" type="submit">{% trans "Sign In" %}</button>
+                    <button class="btn btn-warning right" type="submit">Sign in</button>
                 </form>
               </div>
             </div>
