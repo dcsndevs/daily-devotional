@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from cloudinary import CloudinaryImage
+
 from django.core.validators import RegexValidator
 
 STATUS = ((0, "inactive"), (1, "active"))
@@ -38,3 +40,12 @@ class Profile(models.Model):
         
     def __str__(self):
         return f"{self.owner} | {self.first_name} Joined {self.joined_date}"
+    
+    def get_cloudinary_image(self):
+        """
+        Method to retrieve the CloudinaryImage representation of the picture.
+        """
+        if self.picture:
+            return CloudinaryImage(self.picture).image()
+        else:
+            return None

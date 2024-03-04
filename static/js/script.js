@@ -16,13 +16,13 @@ $(document).ready(function(){
     $('[data-bs-toggle="tooltip"]').tooltip();
 });
 
-// Function to automatically close Django messages after 5seconds
+// Function to automatically close Django messages after 15seconds
 function closeMessages() {
     setTimeout(function() {
         document.querySelectorAll('.alert').forEach(function(message) {
             message.remove();
         });
-    }, 5000); // Adjust the duration (in milliseconds) as needed
+    }, 20000); // Adjust the duration (in milliseconds) as needed
 }
 
 window.onload = function() {

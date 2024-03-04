@@ -9,8 +9,8 @@
 
 {% block content %}
 <div class="container bottom-footer p-3">
-    <div class="badge badge-primary text-wrap bg-info font-weight-normal">
-        <a>Community Members</a>
+    <div class="badge badge-primary text-wrap bg-info font-weight-normal text-dark">
+        Community Members
     </div>
     
     <div class="row">
@@ -24,7 +24,7 @@
                         </a>
                     </div>
                     <div class="card-body text-dark">
-                        <h3><a class="card-text text-info" href="{% url 'member_profile' owner=post.owner.id %}" style="text-decoration: none;">{{ post.first_name }}</a></h3>
+                        <h2><a class="card-text text-dark bg-info p-1 badge badge-primary" href="{% url 'member_profile' owner=post.owner.id %}" style="text-decoration: none;">{{ post.first_name }}</a></h2>
                         <a><b>Favourite Bible Character:</b> {{ post.favourite_bible_character }}</a><br>
                         <a><b>Location:</b> {{ post.location }}</a><hr>
                     </div>

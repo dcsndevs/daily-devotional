@@ -14,9 +14,15 @@
     {% if user.is_authenticated and profile.owner == user %}
         You already have a user profile! Click Member Area link above.
     {% else %}
-    <div class="row container">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form method="post" enctype="multipart/form-data">
+
+    <div class="row text-center g-4 mt-3">
+        <div>
+          <div class="card bg-dark text-light">
+            <div class="card-body text-center">
+              <div class="h2 mb-3">
+                <i class="bi bi-person-add"></i>
+              </div>
+              <form method="post" enctype="multipart/form-data">
                 {{ creation_form | crispy }}
                 {% csrf_token %}
                 
@@ -26,8 +32,10 @@
                     <button type="submit" disabled>Register</button><span><em>Register as a site member before you can create a pofile.</em></span>
                 {% endif %}
             </form>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     
 {% endif %}
 

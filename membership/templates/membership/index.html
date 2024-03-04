@@ -91,7 +91,7 @@
     {% elif user.is_authenticated %}
     <div class="m-3 bottom-footer">
         <p>To access your member area, you need to create a profile.</p>
-        <a href="{% url 'new_membership_profile' %}">Create one now!</a>
+        <a class="btn btn-warning" href="{% url 'new_membership_profile' %}">Create one now!</a>
     </div>
     {% else %}
     <div class="m-3 bottom-footer">
