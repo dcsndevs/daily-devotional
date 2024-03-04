@@ -16,20 +16,20 @@
     <div class="row">
         {% for post in object_list %}
         <div class="col-md-6">
-            <a class="text-dark">
+            <div class="text-dark">
                 <div class="card mb-3">
                     <div class="card-header" style="background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(236, 234, 234, 0.8));">
                         <a href="{% url 'member_profile' owner=post.owner.id %}">
-                        <img src="{{ post.picture.url }}" class="img-fluid img-thumbnail rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="{{ post.picture.url }}" class="img-fluid img-thumbnail rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
                         </a>
                     </div>
-                    <div class="card-body">
-                        <h5><a class="card-text" href="{% url 'member_profile' owner=post.owner.id %}">{{ post.first_name }}</a></h5>
-                        <p><a class="card-text">Favourite Bible Character: {{ post.favourite_bible_character }}</a></p>
-                        <p><a class="card-text">Location: {{ post.location }}</a><hr></p>
+                    <div class="card-body text-dark">
+                        <h3><a class="card-text text-info" href="{% url 'member_profile' owner=post.owner.id %}" style="text-decoration: none;">{{ post.first_name }}</a></h3>
+                        <a><b>Favourite Bible Character:</b> {{ post.favourite_bible_character }}</a><br>
+                        <a><b>Location:</b> {{ post.location }}</a><hr>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
         {% empty %}
         <div class="alert alert-warning" role="alert">
