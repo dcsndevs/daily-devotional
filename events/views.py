@@ -67,10 +67,10 @@ def post_detail(request, slug):
                 return render(request, 'events/event_detail.html',
                               {'post': post})
             # Check if the email is already registered for this event
-            elif email not in email_per_event:
+            elif email in email_per_event:
                 messages.warning(request,
                                  'Sorry this email has already been'
-                                 'registered before!')
+                                 ' registered before!')
                 return render(request, 'events/event_detail.html',
                               {'post': post, 'form': form,
                                'remaining_slot': remaining_slot})
@@ -90,8 +90,8 @@ def post_detail(request, slug):
 
 def current_Programme(request):
     """
-    View for displaying the details of a specific event post.
-    This view retrieves a specific event post identified by its slug from the
+    View for displaying the random events on the homepage.
+    This view retrieves random events post from the
     database using the `Post` model.
     It also retrieves the associated comments for the post.
     **Context**
