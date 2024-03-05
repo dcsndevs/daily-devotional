@@ -213,8 +213,9 @@ To clone this project, you can do so using VsCode or any code editor that has an
 Follow the on-screen prompts to navigate through the application. Input valid data as guided by the application.
 
 ## Future Development and Limitations
-- Work on a feature that allows users to send messages to others would be implemented shortly.
+- Work on a feature that allows users to send messages to others will be implemented shortly.
 - Automatic email responses would be implemented as well. As of now, the site admin has to manually contact users and update on changes.
+- Image fields in the events and devotional models were not used and were unfortunately not removed from the table. I hope to add the styling for it on the template in the future.
 
 
 
