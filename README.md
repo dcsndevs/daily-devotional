@@ -1,102 +1,66 @@
-# ![Care+ logo](documentation/logo-care.png)
+# ![Haven-church](documentation/haven-church-home.png)
 
 ## Welcome,
-Care Plus App is a Python-based application designed to manage student data and track their progress in health and education. The app uses Google Sheets for data storage and visualization.
+Haven Daily devotional is a product of Haven Church. The devotional is a source of spiritual enrichment for Christians. Aside from daily devotional, the website features a bible app, an event registration platform and a social page for connecting with other registered and profiled members.
  
 
-The link to the deployed site can be found [Here](https://care-plus-e6b7c675e391.herokuapp.com/)
+The link to the deployed site can be found [Here](https://devotional-db11bc3466f9.herokuapp.com/)
 
-![Responsive views](documentation/care-responsiveness.png)
 
 ## User Stories
 
 ### First-Time Visitor Goals: 
 As a first-time visitor, the goals are:
 
-- Understand the Purpose of the Careplus App
-- Gain an understanding of the app's purpose and functionality
-- Navigate the Interface: Easily navigate through the menu options
-- Efficient Data Management of student record
-- Manage existing student records efficiently
-- Create and track progress for new students and old student's health and education indicator data
-- Explore the various features, including viewing instructions, creating students, and viewing existing students.
-- Be able to make informed decision based on data collected over a period of time for a student
+- Read current and archived devotionals
+- Comment on devotionals
+- View upcoming events
+- Register for an event
+- Register as a basic user
+- Contact the church through the website
+
+### Member Goals: 
+As a member, the goals are:
+- Read current and archived devotionals
+- Comment on devotionals
+- Like a devotional and comments from others
+- View upcoming events
+- Register for an event
+- Register as a basic user
+- Become a member by creating my profile
+- View profiles of other members
+- View and study the Holy bible
+- Contact the church through the website
+
+### Admin/Owner Goals: 
+As an admin, the goals are:
+- Create devotionals and assign dates that they become active
+- Create events and assign important dates and slots to it
+- Approve new user registration
+- Suspend/delete user profiles and accounts
+- Delete comments from posts
+
 
 ## Logic Flowchart 
-# ![Flowchart](documentation/flow-chart-advance.png)
+# ![Flowchart](documentation/flowchart.png)
+
+## Entity Relationship Diagram (Models)
+# ![Raw ERD](documentation/erd.png)
 
 ## Features 
-# ![Main Menu](documentation/main-screen.png)
+# ![Main Menu](documentation/main-menu.png)
 
 ### Main Menu:
 The app utilizes student names as usernames, ensuring a personalized experience.
 
 - **Select Options:**
   - Press `1` to view existing students.
-  - Press `2` to create a new student.
-  - Press `3` to view instructions.
 
-- **View Existing Students:**
-  - After selecting option `1`, you will see a list of existing students.
-  - Enter the name of the student you want to view.
-  - You have the option to Input, View, Rename, and Delete Student records.
-  # ![Main Features](documentation/student-management-portal.png)
-  - Indicators:
-There are currently two indicators (Health and Education) that are used to store and measure student progress.
-
-- **Create a New Student:**
-  - After selecting option `2`, enter the name of the new student.
-  - Follow the prompts to input health and education progress indicators.
-
-- **View Instructions:**
-  - After selecting option `3`, instructions will be displayed on how to use the application effectively.
-
-- **Progress Entry:**
-  - When entering progress indicators, input values between 0 and 10.
-  - For health and education, the app will visualize the progress with bar charts.
-
-- **Viewing Student Summary:**
-  - After entering progress indicators, choose to view the student's overall progress.
-  - The app will display the average health and education scores, along with visual representations.
-  - Progress Report: View comprehensive summaries of student progress, including averages and visualizations.
-
-![result](documentation/student-progress.png)
-
-- **Restart or Exit:**
-  - After completing any operation, press `Enter` to restart the program.
-  - Type 'exit' to terminate the application.
 
 ## Testing
-Rigorous manual testing was performed to ensure the app's functionality, including user inputs, menu navigation, and data entry.
+Rigorous manual testing was performed to ensure the app's functionality, including user inputs, menu navigation, and responsiveness across screens.
 
-### Input Validation Testing: 
-<details><summary>Menu Selection</summary>
-- Enter a number other than 1, 2, 3
 
-<img src="documentation/enter-wrong-number.png">
-
-- Enter a string or other characters
-
-<img src="documentation/enter-string.png">-
-
-</details>
-<details><summary>Select a student</summary>
-- Anything other than the sudent record in the database
-
-<img src="documentation/no-student-record.png">
-</details>
-
-<details><summary>Create New Student</summary>
-Student creation comes with multiple validations:
-- Name cannot be empty
-- Name cannot start with a space
-- Name must start with at least 2 letters
-- Name can include at least one dot '.'
-- Name can not be more than 30 Characters
-
-<img src="documentation/student-creation-validation.png">
-<img src="documentation/student-creation-validation-2.png">
-</details>
 
 ### Manual Testing: 
 | Feature | Key Action | Expected Result | Tested | Passed | Comments |
@@ -121,33 +85,33 @@ Student creation comes with multiple validations:
 ## Bugs:
 | Issue|Solution |
 |-|-|
-| Warning error received: /Users/dcsn/care-plus/run.py:385: DeprecationWarning: Worksheet.delete_row() is deprecated, Please use `Worksheet.delete_rows()` instead|I replaced the code with `worksheet.delete_row(row)` instead |
+| The profile pictures of users who uploaded images through their Iphones was not showing. The was because Apples image extension is different from what was expected.|After researching cloudinary's website, I learnt about the CloudinaryImage class. It enabled me to convert any image format to jpg before storing to the database|
 
 ### CI Python Linter:
-The CI Python Linter https://pep8ci.herokuapp.com/ was used to test for errors in the code. No errors were found except for warning concerning white spaces or characters being longer than the 79 characters that was originally designed for the application
+The CI Python Linter https://pep8ci.herokuapp.com/ was used to test for errors in the code. All codes were then formatted by following the software's recommendation.
 
-![CI Python Test](documentation/ci-python-test.png)
+### W3 Validator:
+The W3 validator was used to check errors and all found errors were correct. There were however warnings concerning text with the "article" elements on the devotional pages and programmes page. The warning advised on the use of headings (h2-h6) to write the articles.
 
-## Lucid:
-Lucid was used to draw mock-ups for the initial app design to guide the development of this project.
 
-![Lucid Sketch](documentation/flow-chart-simple.png)
 
 ## Technologies used:
+- [Django](https://docs.djangoproject.com/) is the web framework that was used to manage this project.
 - [Python](https://python.org) is the main technology used in this application
 - [Lucid](https://lucid.com) was used to create workflows for guidance in building the application
 - [VScode](https://vscode.com/) was used to write and edit the codes and host the site on my local  computer
 - [Git](https://github.com) was used for the version control of the application
 - [Heroku](https://heroku.com) was used to host the deployed application
 - [ChatGPT](https://chat.openai.com/) was often consulted regarding the usage and construction of codes
-- Google Chrome's [Screenshot & Screen Recorder](https://chrome.google.com/webstore/detail/screenshot-screen-recorde/okkffdhbfplmbjblhgapnchjinanmnij) plugin was used to create the site logo
+- [Google Chrome](https://chrome.google.com/) Developer tool was often used to check issues arising from codes, responsiveness, and general testing.
 - [Code Institute Python Linter](https://pep8ci.herokuapp.com/) was used to check code for any issues
 
 ## Deployment
 
-The template for this app was generated from Code-Institute-Org/p3-template. The repository was cloned on a local VSCode machine and then stored/managed on GitHub. 
+The template for this app was generated from Code-Institute-Org/p4-template. The repository was cloned on a local VSCode machine and then stored/managed on GitHub. 
 
-The Heroku git URl is https://git.heroku.com/care-plus.git
+The Heroku git URl is https://git.heroku.com/devotional.git
+
 
 The app was then deployed on Heroku via Github:
 
@@ -173,7 +137,7 @@ The app was then deployed on Heroku via Github:
 
     Scroll down to the "Buildpack" section in the settings.
     Click "Add," select "Python," and add it. Ensure that "Python" is listed first.
-    Repeat the process, this time adding "Node.js" as a buildpack.
+    Repeat the process, this time adding "Node.js" as a build pack.
 
 6. Deploy Your App:
 
@@ -185,26 +149,21 @@ The app was then deployed on Heroku via Github:
     Scroll down to the deployment section.
     Choose either "Enable Automatic Deploys" for continuous integration or "Manual Deploy" for manual control.
 
-Deployed site -> [Here](https://care-plus-e6b7c675e391.herokuapp.com/)
+Deployed site -> [Here](https://devotional-db11bc3466f9.herokuapp.com/)
 
 
 ### Local Deployment:
 To clone this project, you can do so using VsCode or any code editor that has an integrated development Environment (IDE), using this command: 
 
-1. Clone the repository: `git clone https://github.com/your-username/care-plus-app.git`
+1. Clone the repository: `git clone https://github.com/your-username/daily-devotional.git`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Add your Google Sheets credentials to `creds.json` -  [Created from Google Cloud Console](https://console.cloud.google.com/)
-4. Run the application: `python app.py`
-
-     git clone https://github.com/dcsndevs/care-plus.git 
 
 
-## Dependencies
 
-- [gspread](https://gspread.readthedocs.io/en/latest/)
-To instal this use: `pip3 install gspread`
-- [oauth2client](https://oauth2client.readthedocs.io/en/latest/)
-To instal this use: `pip3 install google-auth`
+## Requirements and Dependencies
+
+- [Requirements](https://github.com/dcsndevs/daily-devotional/blob/main/requirements.txt)
+
 
 ## Usage
 
