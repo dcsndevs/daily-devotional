@@ -49,38 +49,74 @@ As an admin, the goals are:
 
 ## Features 
 # ![Main Menu](documentation/main-menu.png)
+## Devotional: 
+- The site enables users to view devotionals. Daily, the devotional page automatically loads the currently active date devotional and after that archives it. Future devotionals are not seen on the current page or in the archive.
+- Users can like and comment on devotionals. They can also like the comments of others.
+- Visitors can only view devotionals but cannot interact with them by comment or like which can only be done by registered members.
 
-### Main Menu:
-The app utilizes student names as usernames, ensuring a personalized experience.
+## Programmes/Events: 
+- The site enables website visitors to register for events. A notable event feature is the slot. Once full, a message would be passed to the user, informing them that the slot for the event is full.
+- Registered members do not need to input details if logged in. They can simply click register and they will be registered for the programme.
 
-- **Select Options:**
-  - Press `1` to view existing students.
+## Contact: 
+- Anyone can contact the website owners by using the contact form on the home page.
 
+## Bible App: 
+- This is a member-only feature. Once logged in, a user can view all bible books from the King James Version
+
+## Community: 
+- This is a member-only feature. Once logged in, a user can view profiles of other users that have created a profile
+
+## Member Area: 
+- This is a member-only feature. A registered user is not necessarily a member. What qualifies a user to become a member is when they create their profile. They can also edit and delete their profiles. On profile creation, the basic details from the user registration database are automatically loaded to the form (i.e. First name, Last name, and email) to enable a swift profile creation.
+- When a profile is created, a user can also use the form to update their details. When this form is filled, the "transaction.atomic" function helps to update the two tables (user and profile) simultaneously.
+
+## 404 and 500 Error: 
+- When something is not right the site has a 404 and 500 error page to handle that by providing users with information so they are aware and can continue using the site.
 
 ## Testing
 Rigorous manual testing was performed to ensure the app's functionality, including user inputs, menu navigation, and responsiveness across screens.
+View the album of all testing including Pep8, Page Insight and W3
+- [Click here to view screenshots - TESTING.md](TESTING.md) 
 
 
 
 ### Manual Testing: 
-| Feature | Key Action | Expected Result | Tested | Passed | Comments |
+| Feature | Action | Expected Result | Tested | Passed | Comments |
 | --- | --- | --- | --- | --- | --- |
-| *Main Menu Option 1* |  |  |  |  |  |
-|Welcome|Enter 1|Select existing students|Yes|Yes|
-|Welcome to Student Portal |Enter Student Name|Menu Options for student|Yes|Yes|
-|Input New Record|Enter 1|Welcome to Student's Care Progress|Yes|Yes| |
-|Enter Health Progress Value |Enter 0 - 10 value|Opens Education input |Yes|Yes| |
-|Enter Education Progress Value |Enter 0 - 10 value|Accepts values and upload |Yes|Yes| |
-|View Student Overall Progress|Enter 2|Student progress Displayed successfully|Yes|Yes|
-|Rename Student Name |Enter 3 > Enter New name| Name successfully renamed|Yes|Yes|
-|Delete Student Name & Record|Enter 4 > Confirm Y or N |Type Student's Name > Successfully delete|Yes|Yes|
-| *Main Menu Option 2* |  |  |  |  |
-|Create a new student|Enter 2|Input prompt > New student name created.|Yes|Yes|
-| *Main Menu Option 3* |  |  |  |  |
-|View program instructions|Enter 3|Programme Instruction displayed|Yes|Yes|
-|Return to Main menu|Enter 'm' or any key| Return to main menu|Yes|Yes|
-|Exit|Enter 'exit' from any input box|The application exits|Yes|Yes|
-|     |     |     |     |     |   
+|  |  |  |  |  |  |
+| Logo | Click on Haven church logo | User is redirected to index.html | yes | Yes | - |
+| Today's Devotional | Click on Link | User is redirected   | yes | Yes | - |
+| Devotional Archive| Click on Link | User is redirected | yes | Yes | - |
+| Contact | Click on Link | User is redirected to the contact form | yes | Yes | - |
+| Programmes | Click on Link | User is redirected | yes | Yes | - |
+| Community | Click on Link | User is redirected | yes | Yes |  When Logged in  |
+|  |  |  |  |  |  
+| Member Area | Click on Button | User is redirected | yes | Yes |  When Logged in  |
+| Login | Click on Button | User is redirected | yes | Yes | - |
+| Logout | Click on Button | User is redirected | yes | Yes | - |
+| Delete Comment | Click on Button | User is redirected | yes | Yes |  When Logged in |
+| Like Comment | Click on Button | User is redirected | yes | Yes |  When Logged in  |
+| |  |  |  |  |  
+| Register event | Click on icon | User is redirected | yes | Yes | - |
+| Update Profile | Click on icon | User is redirected | yes | Yes | When Logged in |
+| Delete Profile | Click on icon | User is redirected | yes | Yes | - |
+| Programme Archive | Click on Link | User is redirected | yes | Yes | - |
+
+
+
+
+### Browser Testing:
+The final project was tested on four different browsers, namely:
+-Microsoft Internet explorer
+-Google Chrome
+-Brave
+-Mozilla Firefox
+The output was similar on all these browsers except on Mozila firefox, where the fonts appeared darker and were therefore better viewed in terms of clarity and contrast. In addition, the buttons on the "get-involved" section (not page) of the index page were observed to overlap the text above them. I was able to correct this error by adding more padding on top of the buttons.
+
+### Google PageSpeed Insights:
+Google page speed insights was used to test the speed of the website and various issues were highlighted which was followed by subsequent adjustments.
+A notable issue raised was that of the body font being high in contrast. The font (Diphlliea) was then changed to Roboto. High contrast fonts are difficult to read by some users and also on some devices.
 
 ## Bugs:
 | Issue|Solution |
@@ -97,6 +133,7 @@ The W3 validator was used to check errors and all found errors were correct. The
 
 ## Technologies used:
 - [Django](https://docs.djangoproject.com/) is the web framework that was used to manage this project.
+- [Bootstrap](https://getbootstrap.com/) is the web framework used for custom components and layouts.
 - [Python](https://python.org) is the main technology used in this application
 - [Lucid](https://lucid.com) was used to create workflows for guidance in building the application
 - [VScode](https://vscode.com/) was used to write and edit the codes and host the site on my local  computer
@@ -105,6 +142,13 @@ The W3 validator was used to check errors and all found errors were correct. The
 - [ChatGPT](https://chat.openai.com/) was often consulted regarding the usage and construction of codes
 - [Google Chrome](https://chrome.google.com/) Developer tool was often used to check issues arising from codes, responsiveness, and general testing.
 - [Code Institute Python Linter](https://pep8ci.herokuapp.com/) was used to check code for any issues
+- [Bible API](https://bible-api.com/) This API was used to fetch all the bible passages and is the main engine for the Bible App
+### Languages Used
+
+* [HTML5](https://en.wikipedia.org/wiki/HTML5)
+* [CSS3](https://en.wikipedia.org/wiki/CSS)
+* [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 ## Deployment
 
@@ -159,7 +203,6 @@ To clone this project, you can do so using VsCode or any code editor that has an
 2. Install dependencies: `pip install -r requirements.txt`
 
 
-
 ## Requirements and Dependencies
 
 - [Requirements](https://github.com/dcsndevs/daily-devotional/blob/main/requirements.txt)
@@ -170,28 +213,103 @@ To clone this project, you can do so using VsCode or any code editor that has an
 Follow the on-screen prompts to navigate through the application. Input valid data as guided by the application.
 
 ## Future Development and Limitations
-More functionalities would be handy in this application. Extra functionality to include, manually determining the period of time that a student's overall progress should be populated. It would also go further to include exporting this information to a local machine or sending it to a user provided email address.
+- Work on a feature that allows users to send messages to others would be implemented shortly.
+- Automatic email responses would be implemented as well. As of now, the site admin has to manually contact users and update on changes.
+
 
 
 ## Credits
 
 ### Code Institute:
-Special thanks to Code Institute for providing the template used in this project. The template served as a valuable foundation, streamlining the development process and contributing to the overall project structure and theref after deployment.
+Special thanks to Code Institute for providing the template used in this project. The template served as a valuable foundation, streamlining the development process and contributing to the overall project structure and thereafter deployment.
 
-### Google:
-The Care Plus App relies on Google Cloud services, including the Google Sheets API, for efficient data management. I extend my gratitude to Google Cloud for providing a free, robust and reliable cloud solutions that contribute to the functionality of this application.
 
 ### API: 
-Also to the team that created the Gspread and its documentation, and to Google Drive and Google Sheets API. The Care Plus App utilizes the gspread library to interact with the Google Sheets API for efficient data management. We appreciate the developers of gspread for providing a convenient and Pythonic way to work with Google Sheets.
+I am grateful to bible-api.com for allowing me and thousand of developers to use their API.
+
+### ElephantSQL Database
+
+
+1. Click Create New Instance to start a new database.
+2. Provide a name (this is commonly the name of the project: tribe).
+3. Select the Tiny Turtle (Free) plan.
+4. You can leave the Tags blank.
+5. Select the Region and Data Center closest to you.
+6. Once created, click on the new database name, where you can view the database URL and Password.
+
+### Cloudinary
+
+1. For Primary interest, you can choose Programmable Media for image and video API.
+2. Optional: edit your assigned cloud name to something more memorable.
+3. On your Cloudinary Dashboard, you can copy your API Environment Variable.
+4. Be sure to remove the CLOUDINARY_URL= as part of the API value; this is the key.
+
+
+
+### Heroku Deployment
+* Log into [Heroku](https://www.heroku.com/) account or create an account.
+* Click the "New" button at the top right corner and select "Create New App".
+* Enter a unique application name
+* Select your region
+* Click "Create App"
+
+#### Prepare enviroment and settings.py
+* In your GitPod workspace, create an env.py file in the main directory.
+* Add the DATABASE_URL value and your chosen SECRET_KEY value to the env.py file.
+* Update the settings.py file to import the env.py file and add the SECRETKEY and DATABASE_URL file paths.
+* Comment out the default database configuration.
+* Save all files and make migrations.
+* Add the Cloudinary URL to env.py
+* Add the Cloudinary libraries to the list of installed apps.
+* Add the STATIC files settings - the url, storage path, directory path, root path, media url and default file storage path.
+* Link the file to the templates directory in Heroku.
+* Change the templates directory to TEMPLATES_DIR
+* Add Heroku to the ALLOWED_HOSTS list the format ['app_name.heroku.com', 'localhost']
+
+#### Add the following Config Vars in Heroku:
+
+* SECRET_KEY - This can be any Django random secret key
+* CLOUDINARY_URL - Insert your own Cloudinary API key
+* PORT = 8000
+* DISABLE_COLLECTSTATIC = 1 - this is temporary and can be removed for the final deployment
+* DATABASE_URL - Insert your own ElephantSQL database URL here
+
+#### Heroku needs two additional files to deploy properly
+
+* requirements.txt
+* Procfile
+
+#### Deploy
+
+1. Make sure DEBUG = False in the settings.py
+2. Go to the deploy tab on Heroku and connect to GitHub, then to the required repository.
+3. Scroll to the bottom of the deploy page and either click Enable Automatic Deploys for automatic deploys or Deploy Branch to deploy manually. Manually deployed branches will need re-deploying each time the GitHub repository is updated.
+4. Click 'Open App' to view the deployed live site.
+
+
+### Docs
+
+* [Stack Overflow](https://stackoverflow.com/)
+* [Code Institute](https://learn.codeinstitute.net/dashboard)
+* [Bootstrap 4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
+* [Django docs](https://docs.djangoproject.com/en/4.2/releases/3.2/)
+* [Django Allauth](https://django-allauth.readthedocs.io/en/latest/)
+* [Django and Static Assets](https://devcenter.heroku.com/articles/django-assets)
+* [Cloudinary](https://cloudinary.com/documentation/diagnosing_error_codes_tutorial)
+* [Google](https://www.google.com/)
 
 ### Code Reference:
 [W3schools](https://w3schools.com/) was instrumental to the success of this project. It was often used to learn quick features or to compare and see where errors are.
 
-### CarePlus Logic: 
-The logic behind the application is a real life application called [©WellTree] (https://www.welltree.info/)
-WellTree inputs are manually done on an excel worksheet, but this application was built with the intention of automating the inputs and view student progress over time.
+### Images:
+
+All the images used in the creation of this website were sourced on Pexels, Unsplash and W3 websites. Below is a list of the images used and their links: 
+1. The hero image was gotten from canva and no reference was given for it
+2. The bible image on the home page is credited to - Photo by Craig Adderley: (https://www.pexels.com/photo/man-sitting-on-sofa-reading-book-1467564/)
+3. The Pastor image belongs to me - (https://res.cloudinary.com/djhi60enx/image/upload/f_auto,q_auto/lz8ojqlp5jxhenubqev8)
+
 
 ### Acknowledgments:
-I like to thank [Juliia Konn](https://github.com/IuliiaKonovalova/), my mentor at Code Institute. She exemplifies her mentorship with a knack for high-quality projects. Her desire for quality has always challenged me to do better in my work. I remain grateful to her.
+I like to thank [Juliia Konn](https://github.com/IuliiaKonovalova/), my mentor at Code Institute. She exemplifies her mentorship with a knack for high-quality projects. Her desire for quality has always challenged me to do better in my work. I remain grateful to her. Juliia challenged me to add the events feature and I did!.
 
 I also like to thank my loving wife for her continuous support. She's a source of strength as always.
